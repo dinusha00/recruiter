@@ -2,7 +2,7 @@
 
 Recruitement portal to manage the recruitments done via headhunters and calculate the commission for each headhunder. This uses springboot.
 
-# To start the server
+## To start the server
 
  java -jar <PATH>/recruiter-0.0.1.jar
 
@@ -10,7 +10,7 @@ Recruitement portal to manage the recruitments done via headhunters and calculat
 
 Debug mode : --debug
 
-# Important configurations in application.properties
+# Application.properties configuration
 
 N/A
 
