@@ -6,15 +6,15 @@ Recruitement portal to manage the recruitments done via headhunters and calculat
 
  java -jar <PATH>/recruiter-0.0.1.jar
 
-# Startup parameters
+## Startup parameters
 
 Debug mode : --debug
 
-# Application.properties configuration
+## Application.properties configuration
 
 N/A
 
-# SQL schema
+## SQL schema
 
 ```
 CREATE SCHEMA RECRUITER;
@@ -23,6 +23,6 @@ INSERT INTO RECRUITER.JOB_TITLE VALUES(1, 'Mason');
 INSERT INTO RECRUITER.JOB_TITLE VALUES(2, 'Carpenter');
 ```
 
-# History
+## History
 
 Version 0.0.1 : initial release of the component
