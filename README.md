@@ -25,10 +25,20 @@ correctly (Assume price calculation is done always for 1 month period). This is 
 - Logback
 - VueJS
 
-## To start the server
+## Commands
 
- java -jar <PATH>/recruiter-0.0.1.jar
+To build the jar
 
+```
+mvn clean package
+```
+
+To start the server
+
+```
+java -jar <PATH>/recruiter-0.0.1.jar
+```
+ 
 ## Startup parameters
 
 Debug mode : --debug
