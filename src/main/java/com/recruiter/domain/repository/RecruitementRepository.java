@@ -4,8 +4,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.recruiter.domain.JobTitle;
+import com.recruiter.domain.Recruitment;
 
 @Transactional
-public interface JobTitleRepository extends JpaRepository<JobTitle, Long> {
+public interface RecruitementRepository extends JpaRepository<Recruitment, Long> {
 }

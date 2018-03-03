@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "JOB_TITLE", schema = "RECRUITER")
-public class JobTitle implements Serializable {
+@Table(name = "HEAD_HUNTER", schema = "RECRUITER")
+public class HeadHunter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,14 +21,22 @@ public class JobTitle implements Serializable {
 	@Column(nullable = false)
 	private String name;
 
-	protected JobTitle() {
+	protected HeadHunter() {
 	}
 
-	public JobTitle(final String name) {
+	public HeadHunter(final String name) {
 		this.name = name;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public String getName() {
-		return this.name;
+		return name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
 	}
 }

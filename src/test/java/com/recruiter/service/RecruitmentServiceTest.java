@@ -19,13 +19,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @AutoConfigureMockMvc
 public class RecruitmentServiceTest {
 
-    @Autowired
-    private MockMvc mvc;
+	@Autowired
+	private MockMvc mvc;
 
-    @Test
-    public void getHello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/recruitment").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("calling RecruitmentService")));
-    }
+	@Test
+	public void testGetRecruitment() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/recruitment").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string(equalTo("calling RecruitmentService.getRecruitment")));
+	}
 }

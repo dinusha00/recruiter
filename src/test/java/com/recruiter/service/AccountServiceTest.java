@@ -17,14 +17,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HeadHunterServiceTest {
+public class AccountServiceTest {
 
 	@Autowired
 	private MockMvc mvc;
 
 	@Test
-	public void testGetHeadHunter() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/headhunter").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string(equalTo("calling HeadHunterService.getHeadHunter")));
+	public void testGetAccountTotal() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string(equalTo("calling AccountService.getAccountTotal")));
 	}
 }
