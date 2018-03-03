@@ -29,15 +29,22 @@ public class Recruitment implements Serializable {
 		this.date = date;
 	}
 
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("Recruitment [id=");
+		builder.append(id);
+		builder.append(", date=");
+		builder.append(date);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	public Date getDate() {
 		return this.date;
 	}
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setDate(final Date date) {
-		this.date = date;
 	}
 }

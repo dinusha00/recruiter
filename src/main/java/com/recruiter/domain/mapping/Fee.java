@@ -36,31 +36,34 @@ public class Fee implements Serializable {
 		this.amount = amount;
 	}
 
-	public int getType() {
-		return type;
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("Fee [id=");
+		builder.append(id);
+		builder.append(", type=");
+		builder.append(type);
+		builder.append(", count=");
+		builder.append(count);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append("]");
+		return builder.toString();
 	}
 
-	public void setType(final int type) {
-		this.type = type;
+	public Long getId() {
+		return id;
+	}
+
+	public int getType() {
+		return type;
 	}
 
 	public int getCount() {
 		return count;
 	}
 
-	public void setCount(final int count) {
-		this.count = count;
-	}
-
 	public double getAmount() {
 		return amount;
-	}
-
-	public void setAmount(final double amount) {
-		this.amount = amount;
-	}
-
-	public Long getId() {
-		return id;
 	}
 }
