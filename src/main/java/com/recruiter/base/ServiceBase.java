@@ -1,4 +1,4 @@
-package com.recruiter.common;
+package com.recruiter.base;
 
 import org.springframework.beans.factory.annotation.Value;
 

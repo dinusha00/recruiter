@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.recruiter.common.ServiceBase;
+import com.recruiter.base.ServiceBase;
 import com.recruiter.domain.repository.JobTitleRepository;
 
 @RestController
