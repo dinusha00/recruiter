@@ -16,8 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.recruiter.base.ServiceBaseTest;
 import com.recruiter.domain.mapping.JobTitle;
-import com.recruiter.service.base.ServiceBaseTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

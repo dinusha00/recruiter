@@ -1,4 +1,4 @@
-package com.recruiter.service.base;
+package com.recruiter.base;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
