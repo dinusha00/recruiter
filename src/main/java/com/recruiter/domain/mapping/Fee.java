@@ -1,4 +1,4 @@
-package com.recruiter.domain.vo;
+package com.recruiter.domain.mapping;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FEE", schema = "RECRUITER")
+@Table(name = "FEE")
 public class Fee implements Serializable {
 
 	private static final long serialVersionUID = 1L;

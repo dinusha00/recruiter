@@ -4,7 +4,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.recruiter.domain.vo.Fee;
+import com.recruiter.domain.mapping.Fee;
 
 @Transactional
 public interface FeeRepository extends JpaRepository<Fee, Long> {

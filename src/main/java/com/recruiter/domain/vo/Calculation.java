@@ -1,4 +1,4 @@
-package com.recruiter.domain;
+package com.recruiter.domain.vo;
 
 public enum Calculation {
 

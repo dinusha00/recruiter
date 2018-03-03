@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.recruiter.common.ServiceBase;
+
 @RestController
 @RequestMapping("/recruitment")
-public class RecruitmentService {
+public class RecruitmentService extends ServiceBase {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

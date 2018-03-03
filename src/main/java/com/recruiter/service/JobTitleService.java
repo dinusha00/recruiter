@@ -7,20 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.recruiter.common.ServiceBase;
 import com.recruiter.domain.repository.JobTitleRepository;
 
 @RestController
 @RequestMapping("/jobtitle")
-public class JobTitleService {
+public class JobTitleService extends ServiceBase {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private JobTitleRepository jobTitleRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getJobTitle() {
-		logger.info("calling JobTitleService.getJobTitle"+ jobTitleRepository.count());
+		logger.info("calling JobTitleService.getJobTitle" + jobTitleRepository.count() + " msg:" + msgJobTitleNotFound);
 		return "calling JobTitleService.getJobTitle";
 	}
 

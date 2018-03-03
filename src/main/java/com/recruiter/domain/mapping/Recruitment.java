@@ -1,4 +1,4 @@
-package com.recruiter.domain;
+package com.recruiter.domain.mapping;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RECRUITMENT", schema = "RECRUITER")
+@Table(name = "RECRUITMENT")
 public class Recruitment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
