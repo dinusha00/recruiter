@@ -62,4 +62,13 @@ public class CandidateService extends ServiceBase {
 		logger.info("calling CandidateService.deleteCandidate id:{}", id);
 		candidateRepository.delete(id);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}/recruite")
+	public Candidate recruite(@PathVariable final Long id) {
+		logger.info("calling CandidateService.recruite id:{}", id);
+		final Candidate candidate = candidateRepository.findOne(id);
+		candidate.setRecruited(true);
+		final Candidate createdCandidate = candidateRepository.save(candidate);
+		return createdCandidate;
+	}
 }

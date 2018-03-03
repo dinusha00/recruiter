@@ -66,4 +66,8 @@ public class Candidate implements Serializable {
 	public Boolean getRecruited() {
 		return recruited;
 	}
+
+	public void setRecruited(Boolean recruited) {
+		this.recruited = recruited;
+	}
 }
