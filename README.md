@@ -9,6 +9,7 @@ A simple web application to calculate the head hunter fees based on the successf
 ## Technologies used
 - Spring boot
 - H2 database
+- JPA/Hibernate
 - Logback
 - VueJS
 

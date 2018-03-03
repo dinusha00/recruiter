@@ -4,8 +4,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.recruiter.domain.mapping.HeadHunter;
+import com.recruiter.domain.mapping.Headhunter;
 
 @Transactional
-public interface HeadHunterRepository extends JpaRepository<HeadHunter, Long> {
+public interface HeadhunterRepository extends JpaRepository<Headhunter, Long> {
 }

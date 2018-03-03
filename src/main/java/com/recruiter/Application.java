@@ -13,6 +13,6 @@ public class Application {
 	public static void main(final String[] args) {
 		logger.info("calling Application.main");
 		SpringApplication.run(Application.class, args);
-		logger.info("returning from Application.main");
+		logger.info("calling Applicatation.main completed");
 	}
 }

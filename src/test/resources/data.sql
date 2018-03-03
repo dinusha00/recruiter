@@ -1,8 +1,11 @@
--- JOB_TITLE
-INSERT INTO JOB_TITLE VALUES(3, 'Driver');
+-- job_title
+insert into job_title(id, name) values(3, 'Driver');
 
--- HEAD_HUNTER
-INSERT INTO HEADHUNTER VALUES(3, 'Peter');
+-- headhunter
+insert into headhunter(id, name) values(3, 'Peter');
 
--- CANDIDATE
-INSERT INTO CANDIDATE VALUES(3, 'Dawan');
+-- candidate
+insert into candidate(id, name) values(3, 'Dawan');
+
+-- headhunter_candidate
+--insert into headhunter_candidate(headhunter_id, candidate_id) values(3, 3);

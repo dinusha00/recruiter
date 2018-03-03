@@ -16,13 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.recruiter.base.ServiceBaseTest;
-import com.recruiter.domain.mapping.HeadHunter;
+import com.recruiter.domain.mapping.Headhunter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class HeadHunterServiceTest extends ServiceBaseTest{
+public class HeadhunterServiceTest extends ServiceBaseTest{
 
 	@Test
 	public void testInvalidPath() throws Exception {
@@ -33,7 +33,7 @@ public class HeadHunterServiceTest extends ServiceBaseTest{
 	}
 
 	@Test
-	public void testGetHeadHunters() throws Exception {
+	public void testGetHeadhunters() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/headhunter"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
@@ -48,7 +48,7 @@ public class HeadHunterServiceTest extends ServiceBaseTest{
 	}
 
 	@Test
-	public void testGetHeadHunter() throws Exception {
+	public void testGetHeadhunter() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/headhunter/1"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
@@ -58,7 +58,7 @@ public class HeadHunterServiceTest extends ServiceBaseTest{
 	}
 
 	@Test
-	public void testGetHeadHunterNotAvailable() throws Exception {
+	public void testGetHeadhunterNotAvailable() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/headhunter/0"))
 		.andExpect(status().isOk())
 		.andExpect(content().string(""))
@@ -66,28 +66,28 @@ public class HeadHunterServiceTest extends ServiceBaseTest{
 	}
 
 	@Test
-	public void testAddHeadHunter() throws Exception {
-		final String headHunterJson = json(new HeadHunter("TestHeadHunterAdd"));
-		mvc.perform(MockMvcRequestBuilders.post("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headHunterJson))
+	public void testAddHeadhunter() throws Exception {
+		final String headhunterJson = json(new Headhunter("TestHeadhunterAdd"));
+		mvc.perform(MockMvcRequestBuilders.post("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson))
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
-		.andExpect(jsonPath("$.name", is("TestHeadHunterAdd")))
+		.andExpect(jsonPath("$.name", is("TestHeadhunterAdd")))
 		;
 	}
 	
 	@Test
-	public void testUpdateHeadHunter() throws Exception {
-		final String headHunterJson = json(new HeadHunter("TestHeadHunterUpdate"));
-		mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headHunterJson))
+	public void testUpdateHeadhunter() throws Exception {
+		final String headhunterJson = json(new Headhunter("TestHeadhunterUpdate"));
+		mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
-		.andExpect(jsonPath("$.name", is("TestHeadHunterUpdate")))
+		.andExpect(jsonPath("$.name", is("TestHeadhunterUpdate")))
 		;
 	}
 	
 	 @Test
 	 @Ignore(value="correct the test cases that will fail when data deletes and enable this test")
-	 public void testDeleteHeadHunter() throws Exception {
+	 public void testDeleteHeadhunter() throws Exception {
 	 mvc.perform(MockMvcRequestBuilders.delete("/headhunter/1").contentType(MediaType.APPLICATION_JSON))
 	 .andExpect(status().isOk())
 	 ;

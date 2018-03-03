@@ -1,11 +1,15 @@
--- JOB_TITLE
-INSERT INTO JOB_TITLE VALUES(1, 'Mason');
-INSERT INTO JOB_TITLE VALUES(2, 'Carpenter');
+-- job_title
+insert into job_title(id, name) values(1, 'Mason');
+insert into job_title(id, name) values(2, 'Carpenter');
 
--- HEADHUNTER
-INSERT INTO HEADHUNTER VALUES(1, 'James');
-INSERT INTO HEADHUNTER VALUES(2, 'Mark');
+-- headhunter
+insert into headhunter(id, name) values(1, 'James');
+insert into headhunter(id, name) values(2, 'Mark');
 
--- CANDIDATE
-INSERT INTO CANDIDATE VALUES(1, 'Virat');
-INSERT INTO CANDIDATE VALUES(2, 'Rohith');
+-- candidate
+insert into candidate(id, name) values(1, 'Virat');
+insert into candidate(id, name) values(2, 'Rohith');
+
+-- headhunter_candidate
+-- insert into headhunter_candidate(headhunter_id, candidate_id) values(1, 1);
+-- insert into headhunter_candidate(headhunter_id, candidate_id) values(1, 2);
