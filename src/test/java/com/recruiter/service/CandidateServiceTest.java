@@ -40,10 +40,13 @@ public class CandidateServiceTest extends ServiceBaseTest{
 //		.andExpect(jsonPath("$", hasSize(3)))
 		.andExpect(jsonPath("$[0].id", is(1)))
 		.andExpect(jsonPath("$[0].name", is("Virat")))
+		.andExpect(jsonPath("$[0].recruited", is(false)))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].name", is("Rohith")))
+		.andExpect(jsonPath("$[0].recruited", is(false)))
 		.andExpect(jsonPath("$[2].id", is(3)))
 		.andExpect(jsonPath("$[2].name", is("Dawan")))
+		.andExpect(jsonPath("$[0].recruited", is(false)))
 		;
 	}
 
@@ -54,6 +57,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.id", is(1)))
 		.andExpect(jsonPath("$.name", is("Virat")))
+		.andExpect(jsonPath("$.recruited", is(false)))
 		;
 	}
 
@@ -72,6 +76,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestCandidateAdd")))
+		.andExpect(jsonPath("$.recruited", is(false)))
 		;
 	}
 	
@@ -82,6 +87,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestCandidateUpdate")))
+		.andExpect(jsonPath("$.recruited", is(false)))
 		;
 	}
 	
