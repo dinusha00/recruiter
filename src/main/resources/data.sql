@@ -7,9 +7,5 @@ insert into headhunter(id, name) values(1, 'James');
 insert into headhunter(id, name) values(2, 'Mark');
 
 -- candidate
-insert into candidate(id, name) values(1, 'Virat');
-insert into candidate(id, name) values(2, 'Rohith');
-
--- headhunter_candidate
--- insert into headhunter_candidate(headhunter_id, candidate_id) values(1, 1);
--- insert into headhunter_candidate(headhunter_id, candidate_id) values(1, 2);
+insert into candidate(id, name, headhunterid) values(1, 'Virat', 1);
+insert into candidate(id, name, headhunterid) values(2, 'Rohith', 1);

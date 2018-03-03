@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.recruiter.base.ServiceBaseTest;
 import com.recruiter.domain.mapping.Candidate;
-import com.recruiter.domain.mapping.Headhunter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -68,8 +67,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 
 	@Test
 	public void testAddCandidate() throws Exception {
-		final Headhunter headhunter = new Headhunter("TestHeadhunterAdd");
-		final String candidateJson = json(new Candidate("TestCandidateAdd", headhunter));
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L));
 		mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
@@ -79,8 +77,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 	
 	@Test
 	public void testUpdateCandidate() throws Exception {
-		final Headhunter headhunter = new Headhunter("TestHeadhunterAdd");
-		final String candidateJson = json(new Candidate("TestCandidateUpdate", headhunter));
+		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L));
 		mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))

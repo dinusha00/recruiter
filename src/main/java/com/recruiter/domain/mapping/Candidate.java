@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,15 +21,15 @@ public class Candidate implements Serializable {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = true)
-	private Headhunter headhunter;
+	@Column(nullable = false)
+	private Long headhunterid;
 
 	protected Candidate() {
 	}
 
-	public Candidate(final String name, final Headhunter headhunter) {
+	public Candidate(final String name, final Long headhunterid) {
 		this.name = name;
-		this.headhunter = headhunter;
+		this.headhunterid = headhunterid;
 	}
 
 	@Override
@@ -41,8 +39,8 @@ public class Candidate implements Serializable {
 		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", headhunter=");
-		builder.append(headhunter);
+		builder.append(", headhunterid=");
+		builder.append(headhunterid);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -55,9 +53,7 @@ public class Candidate implements Serializable {
 		return name;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "headhunter_id")
-	public Headhunter getHeadhunter() {
-		return headhunter;
+	public Long getHeadhunterid() {
+		return headhunterid;
 	}
 }
