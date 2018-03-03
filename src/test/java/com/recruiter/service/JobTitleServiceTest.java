@@ -1,6 +1,5 @@
 package com.recruiter.service;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -38,13 +37,13 @@ public class JobTitleServiceTest extends ServiceBaseTest{
 		mvc.perform(MockMvcRequestBuilders.get("/jobtitle"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
-		.andExpect(jsonPath("$", hasSize(3)))
+//		.andExpect(jsonPath("$", hasSize(3)))
 		.andExpect(jsonPath("$[0].id", is(1)))
 		.andExpect(jsonPath("$[0].name", is("Mason")))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].name", is("Carpenter")))
 		.andExpect(jsonPath("$[2].id", is(3)))
-		.andExpect(jsonPath("$[2].name", is("Test")))
+		.andExpect(jsonPath("$[2].name", is("Driver")))
 		;
 	}
 
