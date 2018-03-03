@@ -67,7 +67,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 
 	@Test
 	public void testAddCandidate() throws Exception {
-		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L));
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L, false));
 		mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
@@ -77,7 +77,7 @@ public class CandidateServiceTest extends ServiceBaseTest{
 	
 	@Test
 	public void testUpdateCandidate() throws Exception {
-		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L));
+		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L, false));
 		mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))

@@ -24,12 +24,16 @@ public class Candidate implements Serializable {
 	@Column(nullable = false)
 	private Long headhunterid;
 
+	@Column(nullable = true)
+	private Boolean recruited;
+
 	protected Candidate() {
 	}
 
-	public Candidate(final String name, final Long headhunterid) {
+	public Candidate(final String name, final Long headhunterid, final Boolean recruited) {
 		this.name = name;
 		this.headhunterid = headhunterid;
+		this.recruited = recruited;
 	}
 
 	@Override
@@ -42,6 +46,8 @@ public class Candidate implements Serializable {
 		builder.append(", headhunterid=");
 		builder.append(headhunterid);
 		builder.append("]");
+		builder.append(", recruited=");
+		builder.append(recruited);
 		return builder.toString();
 	}
 
@@ -55,5 +61,9 @@ public class Candidate implements Serializable {
 
 	public Long getHeadhunterid() {
 		return headhunterid;
+	}
+
+	public Boolean getRecruited() {
+		return recruited;
 	}
 }
