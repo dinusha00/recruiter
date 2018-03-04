@@ -1,4 +1,4 @@
-package com.recruiter.domain.mapping;
+package com.recruiter.domain.entity;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "headhunter")
-public class Headhunter implements Serializable {
+@Table(name = "job_title")
+public class JobTitle implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,17 +21,17 @@ public class Headhunter implements Serializable {
 	@Column(nullable = false)
 	private String name;
 
-	protected Headhunter() {
+	protected JobTitle() {
 	}
 
-	public Headhunter(final String name) {
+	public JobTitle(final String name) {
 		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Headhunter [id=");
+		final StringBuilder builder = new StringBuilder();
+		builder.append("JobTitle [id=");
 		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
@@ -44,6 +44,6 @@ public class Headhunter implements Serializable {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 }

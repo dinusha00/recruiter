@@ -1,4 +1,4 @@
-package com.recruiter.service;
+package com.recruiter.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class AccountServiceTest {
+public class AccountControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -27,12 +27,12 @@ public class AccountServiceTest {
 	@Test
 	public void testGetAccountTotal() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string(equalTo("calling AccountService.getAccountTotal")));
+				.andExpect(content().string(equalTo("calling AccountController.getAccountTotal")));
 	}
 
 	@Test
 	public void testGetAccountBreakdown() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.post("/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string(equalTo("calling AccountService.getAccountBreakdown")));
+				.andExpect(content().string(equalTo("calling AccountController.getAccountBreakdown")));
 	}
 }

@@ -1,4 +1,4 @@
-package com.recruiter.domain.mapping;
+package com.recruiter.domain.entity;
 
 import java.io.Serializable;
 

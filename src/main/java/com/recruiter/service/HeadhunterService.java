@@ -5,20 +5,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.recruiter.base.ServiceBase;
-import com.recruiter.domain.mapping.Headhunter;
+import com.recruiter.domain.entity.Headhunter;
 import com.recruiter.domain.repository.HeadhunterRepository;
 
-@RestController
-@RequestMapping("/headhunter")
+@Service
 public class HeadhunterService extends ServiceBase {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -26,39 +19,35 @@ public class HeadhunterService extends ServiceBase {
 	@Autowired
 	private HeadhunterRepository headhunterRepository;
 
-	@RequestMapping(method = RequestMethod.GET)
 	public List<Headhunter> getHeadhunters() {
 		logger.info("calling HeadhunterService.getHeadhunters");
 		final List<Headhunter> headhunters = headhunterRepository.findAll();
-		logger.info("returning from HeadhunterService.getHeadhunters headhunters.size():{}", headhunters.size());
+		logger.info("returning from HeadhunterService.getHeadhunters headhunters:{}", headhunters);
 		return headhunters;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public Headhunter getHeadhunter(@PathVariable final Long id) {
+	public Headhunter getHeadhunter(final Long id) {
 		logger.info("calling HeadhunterService.getHeadhunter id:" + id);
 		final Headhunter headhunter = headhunterRepository.findOne(id);
 		logger.info("returning from HeadhunterService.getHeadhunter headhunter:{}", headhunter);
 		return headhunter;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Headhunter addHeadhunter(@RequestBody final Headhunter headhunter) {
+	public Headhunter addHeadhunter(final Headhunter headhunter) {
 		logger.info("calling HeadhunterService.addHeadhunter headhunter:{}", headhunter);
 		final Headhunter createdHeadhunter = headhunterRepository.save(headhunter);
+		logger.info("returning HeadhunterService.addHeadhunter createdHeadhunter:{}", createdHeadhunter);
 		return createdHeadhunter;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public Headhunter updateHeadhunter(@RequestBody final Headhunter headhunter) {
+	public Headhunter updateHeadhunter(final Headhunter headhunter) {
 		logger.info("calling HeadhunterService.updateHeadhunter headhunter:{}", headhunter);
 		final Headhunter updatedHeadhunter = headhunterRepository.save(headhunter);
+		logger.info("returning from HeadhunterService.updateHeadhunter updatedHeadhunter:{}", updatedHeadhunter);
 		return updatedHeadhunter;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public void deleteHeadhunter(@PathVariable final Long id) {
+	public void deleteHeadhunter(final Long id) {
 		logger.info("calling HeadhunterService.deleteHeadhunter id:{}", id);
 		headhunterRepository.delete(id);
 	}

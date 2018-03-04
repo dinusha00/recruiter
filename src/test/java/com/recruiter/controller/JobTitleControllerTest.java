@@ -1,4 +1,4 @@
-package com.recruiter.service;
+package com.recruiter.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -16,13 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.recruiter.base.ServiceBaseTest;
-import com.recruiter.domain.mapping.JobTitle;
+import com.recruiter.domain.entity.JobTitle;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class JobTitleServiceTest extends ServiceBaseTest{
+public class JobTitleControllerTest extends ServiceBaseTest{
 
 	@Test
 	public void testInvalidPath() throws Exception {

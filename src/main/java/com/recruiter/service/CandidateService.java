@@ -5,20 +5,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.recruiter.base.ServiceBase;
-import com.recruiter.domain.mapping.Candidate;
+import com.recruiter.domain.entity.Candidate;
 import com.recruiter.domain.repository.CandidateRepository;
 
-@RestController
-@RequestMapping("/candidate")
+@Service
 public class CandidateService extends ServiceBase {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -26,49 +19,54 @@ public class CandidateService extends ServiceBase {
 	@Autowired
 	private CandidateRepository candidateRepository;
 
-	@RequestMapping(method = RequestMethod.GET)
 	public List<Candidate> getCandidates() {
 		logger.info("calling CandidateService.getCandidates");
 		final List<Candidate> candidates = candidateRepository.findAll();
-		logger.info("returning from CandidateService.getCandidates candidates.size():{}", candidates.size());
+		logger.info("returning from CandidateService.getCandidates candidates:{}", candidates);
 		return candidates;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public Candidate getCandidate(@PathVariable final Long id) {
+	public Candidate getCandidate(final Long id) {
 		logger.info("calling CandidateService.getCandidate id:" + id);
 		final Candidate candidate = candidateRepository.findOne(id);
 		logger.info("returning from CandidateService.getCandidate candidate:{}", candidate);
 		return candidate;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Candidate addCandidate(@RequestBody final Candidate candidate) {
+	public Candidate addCandidate(final Candidate candidate) {
 		logger.info("calling CandidateService.addCandidate candidate:{}", candidate);
 		final Candidate createdCandidate = candidateRepository.save(candidate);
+		logger.info("returning from CandidateService.addCandidate createdCandidate:{}", createdCandidate);
 		return createdCandidate;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public Candidate updateCandidate(@RequestBody final Candidate candidate) {
+	public Candidate updateCandidate(final Candidate candidate) {
 		logger.info("calling CandidateService.updateCandidate candidate:{}", candidate);
 		final Candidate updatedCandidate = candidateRepository.save(candidate);
+		logger.info("returning CandidateService.updateCandidate updatedCandidate:{}", updatedCandidate);
 		return updatedCandidate;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public void deleteCandidate(@PathVariable final Long id) {
+	public void deleteCandidate(final Long id) {
 		logger.info("calling CandidateService.deleteCandidate id:{}", id);
 		candidateRepository.delete(id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}/recruite")
-	public Candidate recruite(@PathVariable final Long id) {
+	public Candidate recruite(final Long id) {
 		logger.info("calling CandidateService.recruite id:{}", id);
 		final Candidate candidate = candidateRepository.findOne(id);
 		candidate.setRecruited(true);
 		final Candidate createdCandidate = candidateRepository.save(candidate);
+		logger.info("returning from CandidateService.recruite createdCandidate:{}", createdCandidate);
 		return createdCandidate;
+	}
+
+	public Candidate reject(final Long id) {
+		logger.info("calling CandidateService.reject id:{}", id);
+		final Candidate candidate = candidateRepository.findOne(id);
+		candidate.setRecruited(false);
+		final Candidate rejectedCandidate = candidateRepository.save(candidate);
+		logger.info("calling CandidateService.reject rejectedCandidate:{}", rejectedCandidate);
+		return rejectedCandidate;
 	}
 }
