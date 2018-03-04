@@ -3,6 +3,15 @@
 <head>
 	<meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+    .breakdown{
+    	padding: 40px;
+    	background-color: #eee;
+    	-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+    }
+    </style>
 </head>
 <body>
 <div id="root">
@@ -17,15 +26,27 @@
                 </h6>
                 <ul>
                     <li v-for="headhunter in headhunters">
-                    	<h5><a :href="headhunterCandidates(headhunter)">{{headhunter.name}}</a></h5>
+                    	
+                    	<h5><button v-on:click="headhunterCandidates(headhunter)">{{headhunter.name}}</button></h5>
+                    	 <hello :items="subItems" v-if="currentId == headhunter.id"></hello>
+                    	 
+                    	 <div v-if="currentId == headhunter.id"> 
+                    	 	<button v-on:click="calculate(headhunter)" >Calculate</button> 
+                    	 	<span v-if="isCalculate"> Currency: {{currency | 0}} ,  Amount : {{amount | 0}} </span>
+                    	 	<div v-if="isCalculate" class="breakdown">{{breakdown}}</div>
+                    	 </div>	
+                    	
                         <hr />
                     </li>
                 </ul>
+                
+                
             </div>
         </div>
     </div>
+    
 </div>
-</body>
+
 
 <div>
 	<script src="/js/vue.min.js"></script>
@@ -33,9 +54,45 @@
 </div>
 
 <script>
+
+Vue.component('hello', {
+	 /*functional: true,
+	  render: function(createElement, context) {
+
+	    console.log('Rendering Foo')
+	    return createElement({
+	      template: context.props.foo
+	    })
+	  },
+	  props: {
+	    foo: {
+	      type: String,
+	      required: true
+	    }
+	  }*/
+	  template: '<ul><li v-for="item in items">{{item.name}}</li></ul>',
+	  // data is technically a function, so Vue won't
+	  // complain, but we return the same object
+	  // reference for each component instance
+	  props: {
+	    items: {
+	        type: Array,
+	        default: function () { return [] }
+	    }
+	  }
+	})
+
 var app = new Vue({
 	el: '#root',
-    data : {headhunters: []},
+    data : {
+    		headhunters: [],
+    		subItems: [],
+    		currentId: -1,
+    		currency: 0,
+  		  	amount: 0,
+  		  	breakdown: null,
+  		  	isCalculate: false
+    },
     mounted(){
     	this.fetchHeadhunters();
 	},
@@ -45,10 +102,35 @@ var app = new Vue({
             	this.headhunters = response.data;
             }.bind(this));
         },
+        calculate(headhunter){
+        	var self = this;
+        	self.isCalculate = false;
+        	axios.get(window.location.href +'/headhunter/'+ headhunter.id +'/calculate').then(function(response){
+        		console.log(response);
+        		self.currency = response.data.currency;
+        		self.amount = response.data.amount;
+        		self.breakdown = response.data.breakdown;
+        		self.isCalculate = true;
+      		});
+        },
         headhunterCandidates(headhunter){
-       		return '/headhunter/'+ headhunter.id +'/candidates';
+        	var self = this;
+        	self.currentId = -1;
+        	self.isCalculate = false;
+        	console.log(window.location.href +'/headhunter/'+ headhunter.id +'/candidates');
+        	axios.get(window.location.href +'/headhunter/'+ headhunter.id +'/candidates').then(function(response){
+        		self.currentId = headhunter.id;
+        		self.subItems = response.data;
+      		});
+      	},
+      	isBreakDownRendable(){
+      		return isCalculate;
       	}
     }
 });
+
+
+
 </script>
+</body>
 </html>
