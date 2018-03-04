@@ -1,5 +1,7 @@
 package com.recruiter.service;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.recruiter.base.ServiceBase;
 import com.recruiter.domain.entity.Headhunter;
 import com.recruiter.domain.repository.HeadhunterRepository;
+import com.recruiter.domain.vo.Calculation;
 
 @Service
 public class HeadhunterService extends ServiceBase {
@@ -60,5 +63,16 @@ public class HeadhunterService extends ServiceBase {
 	public void deleteHeadhunter(final Long id) {
 		logger.info("calling HeadhunterService.deleteHeadhunter id:{}", id);
 		headhunterRepository.delete(id);
+	}
+
+	public Calculation calculate(final Long id) {
+		logger.info("calling HeadhunterService.calculate id:" + id);
+		final NumberFormat formatter = new DecimalFormat("#0.00");
+		final Double amount = 1000.57;
+		final String breakdown = "N/A";
+
+		final Calculation calculation = new Calculation(currencyCode, formatter.format(amount), breakdown);
+		logger.info("returning from HeadhunterService.calculate calculation:{}", calculation);
+		return calculation;
 	}
 }

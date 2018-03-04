@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.recruiter.domain.entity.Candidate;
 import com.recruiter.domain.entity.Headhunter;
+import com.recruiter.domain.vo.Calculation;
 import com.recruiter.service.CandidateService;
 import com.recruiter.service.HeadhunterService;
 
@@ -78,5 +79,13 @@ public class HeadhunterController {
 		final List<Candidate> candidates = candidateService.readHeadhunterCandidates(id);
 		logger.info("returning from HeadhunterController.readHeadhunterCandidates candidates:{}", candidates);
 		return candidates;
+	}
+
+	@GetMapping(value = "/{id}/calculate")
+	public Calculation calculate(@PathVariable final Long id) {
+		logger.info("calling HeadhunterController.calculate id:" + id);
+		final Calculation calculation = headhunterService.calculate(id);
+		logger.info("returning from HeadhunterController.calculate calculation:{}", calculation);
+		return calculation;
 	}
 }

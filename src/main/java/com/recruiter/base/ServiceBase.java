@@ -9,7 +9,7 @@ public class ServiceBase {
 
 	@Value("${jobtitle.already.exists}")
 	protected String msgJobTitleAlreadyExists;
-	
+
 	@Value("${jobtitle.doesnot.exists}")
 	protected String msgJobTitleDoesnotExists;
 
@@ -18,7 +18,7 @@ public class ServiceBase {
 
 	@Value("${headhunter.already.exists}")
 	protected String msgHeadhunterAlreadyExists;
-	
+
 	@Value("${headhunter.doesnot.exists}")
 	protected String msgHeadhunterDoesnotExists;
 
@@ -27,4 +27,7 @@ public class ServiceBase {
 
 	@Value("${candidate.already.exists}")
 	protected String msgCandidateAlreadyExists;
+
+	@Value("${currency.code}")
+	protected String currencyCode;
 }
