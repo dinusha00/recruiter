@@ -54,16 +54,18 @@ public class FeeService extends ServiceBase {
 		logger.debug("countForTypeMason:{}", countForTypeMason);
 		final int countForTypeCarpenter = candidatesTypeCarpenter.size();
 		logger.debug("countForTypeCarpenter:{}", countForTypeCarpenter);
-
-		final Double amountForTypeMason = (countForTypeMason * feeFixedForTypeMason.getAmount())
-				+ (Math.floor(countForTypeMason / feePercentageForTypeMason.getCount()) * feePercentageForTypeMason.getAmount());
+		final int countForTypeMasonPercentage = new Double(Math.floor(countForTypeMason / feePercentageForTypeMason.getCount())).intValue();
+		logger.debug("countForTypeMasonPercentage:{}", countForTypeMasonPercentage);
+		final int countForTypeCarpenterPercentage = new Double(Math.floor(countForTypeCarpenter / feePercentageForTypeCarpenter.getCount())).intValue();
+		logger.debug("countForTypeCarpenterPercentage:{}", countForTypeCarpenterPercentage);
+		final Double amountForTypeMason = (countForTypeMason * feeFixedForTypeMason.getAmount()) + (countForTypeMasonPercentage * feePercentageForTypeMason.getAmount());
 
 		final Double amountForTypeCarpenter = (countForTypeCarpenter * feeFixedForTypeCarpenter.getAmount())
-				+ (Math.floor(countForTypeCarpenter / feePercentageForTypeCarpenter.getCount()) * feePercentageForTypeCarpenter.getAmount());
+				+ (countForTypeCarpenterPercentage * feePercentageForTypeCarpenter.getAmount());
 
 		final Double amount = amountForTypeMason + amountForTypeCarpenter;
-		final StringBuilder breakdown = buildBreakdown(feeFixedForTypeMason, feePercentageForTypeMason, countForTypeMason, amountForTypeMason, feeFixedForTypeCarpenter,
-				feePercentageForTypeCarpenter, countForTypeCarpenter, amountForTypeCarpenter);
+		final StringBuilder breakdown = buildBreakdown(feeFixedForTypeMason, feePercentageForTypeMason, countForTypeMason, amountForTypeMason, countForTypeMasonPercentage,
+				feeFixedForTypeCarpenter, feePercentageForTypeCarpenter, countForTypeCarpenter, amountForTypeCarpenter, countForTypeCarpenterPercentage);
 
 		logger.info("amount:{}", amount);
 		logger.info("breakdown:{}", breakdown);
@@ -74,28 +76,15 @@ public class FeeService extends ServiceBase {
 	}
 
 	private StringBuilder buildBreakdown(final Fee feeFixedForTypeMason, final Fee feePercentageForTypeMason, final int countForTypeMason, final Double amountForTypeMason,
-			final Fee feeFixedForTypeCarpenter, final Fee feePercentageForTypeCarpenter, final int countForTypeCarpenter, final Double amountForTypeCarpenter) {
+			final int countForTypeMasonPercentage, final Fee feeFixedForTypeCarpenter, final Fee feePercentageForTypeCarpenter, final int countForTypeCarpenter,
+			final Double amountForTypeCarpenter, final int countForTypeCarpenterPercentage) {
 		final StringBuilder breakdown = new StringBuilder();
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("fee calculation(mason)").append("\n");
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("count for type mason:" + countForTypeMason).append("\n");
-		breakdown.append("fixed fee for mason:" + feeFixedForTypeMason.getAmount()).append("\n");
-		breakdown.append("% fee for mason:" + feePercentageForTypeMason.getAmount()).append("\n");
-		breakdown.append("% total amount for type mason:" + amountForTypeMason).append("\n");
-
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("fee calculation(carpenter)").append("\n");
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("count for type carpenter:" + countForTypeCarpenter).append("\n");
-		breakdown.append("fixed fee for carpenter:" + feeFixedForTypeCarpenter.getAmount()).append("\n");
-		breakdown.append("% fee for carpenter:" + feePercentageForTypeCarpenter.getAmount()).append("\n");
-		breakdown.append("% total amount for type carpenter:" + amountForTypeCarpenter).append("\n");
-
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("fee calculation(total)").append("\n");
-		breakdown.append("--------------------------").append("\n");
-		breakdown.append("final total amount:" + feePercentageForTypeMason).append("+").append(feePercentageForTypeCarpenter).append("\n");
+		breakdown.append("(");
+		breakdown.append("Masons:" + countForTypeMason + "*" + feeFixedForTypeMason.getAmount() + " + (" + countForTypeMasonPercentage + "*" + feePercentageForTypeMason.getAmount()
+				+ ")*" + feePercentageForTypeMason.getAmount() + "%");
+		breakdown.append("Carpenters:" + countForTypeCarpenter + "*" + feeFixedForTypeCarpenter.getAmount() + " + (" + countForTypeCarpenterPercentage + "*"
+				+ feePercentageForTypeCarpenter.getAmount() + ")*" + feePercentageForTypeCarpenter.getAmount() + "%");
+		breakdown.append(")");
 		return breakdown;
 	}
 }

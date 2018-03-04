@@ -26,27 +26,20 @@
                 </h6>
                 <ul>
                     <li v-for="headhunter in headhunters">
-                    	
-                    	<h5><button v-on:click="headhunterCandidates(headhunter)">{{headhunter.name}}</button></h5>
-                    	 <hello :items="subItems" v-if="currentId == headhunter.id"></hello>
-                    	 
+                    	<h5>{{headhunter.name}}&nbsp;&nbsp;<button v-on:click="headhunterCandidates(headhunter)">View Recruited List</button></h5>
+                    	 <items :items="subItems" v-if="currentId == headhunter.id"></items>
                     	 <div v-if="currentId == headhunter.id"> 
                     	 	<button v-on:click="calculate(headhunter)" >Calculate</button> 
                     	 	<span v-if="isCalculate"> Currency: {{currency | 0}} ,  Amount : {{amount | 0}} </span>
                     	 	<div v-if="isCalculate" class="breakdown">{{breakdown}}</div>
                     	 </div>	
-                    	
                         <hr />
                     </li>
                 </ul>
-                
-                
             </div>
         </div>
     </div>
-    
 </div>
-
 
 <div>
 	<script src="/js/vue.min.js"></script>
@@ -55,32 +48,16 @@
 
 <script>
 
-Vue.component('hello', {
-	 /*functional: true,
-	  render: function(createElement, context) {
-
-	    console.log('Rendering Foo')
-	    return createElement({
-	      template: context.props.foo
-	    })
-	  },
-	  props: {
-	    foo: {
-	      type: String,
-	      required: true
-	    }
-	  }*/
+Vue.component('items', {
 	  template: '<ul><li v-for="item in items">{{item.name}}</li></ul>',
-	  // data is technically a function, so Vue won't
-	  // complain, but we return the same object
-	  // reference for each component instance
 	  props: {
 	    items: {
 	        type: Array,
 	        default: function () { return [] }
 	    }
 	  }
-	})
+	}
+)
 
 var app = new Vue({
 	el: '#root',
@@ -128,8 +105,6 @@ var app = new Vue({
       	}
     }
 });
-
-
 
 </script>
 </body>
