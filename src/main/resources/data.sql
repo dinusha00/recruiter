@@ -3,6 +3,13 @@ insert into job_title(id, name) values(1, 'Mason');
 insert into job_title(id, name) values(2, 'Carpenter');
 insert into job_title(id, name) values(3, 'Driver');
 
+-- fee
+insert into fee(jobtitleid, type, count, amount) values(1, 1, 1, 200); -- successfully recruited mason, the head hunter gets 200$
+insert into fee(jobtitleid, type, count, amount) values(1, 2, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+
+insert into fee(jobtitleid, type, count, amount) values(2, 1, 1, 250); -- successfully recruited carpenter, the head hunter gets 250$.
+insert into fee(jobtitleid, type, count, amount) values(2, 1, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+
 -- headhunter
 insert into headhunter(id, name) values(1, 'Wilson');
 insert into headhunter(id, name) values(2, 'Simon');
@@ -37,24 +44,8 @@ insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(22, 
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(23, 'Smith', 2, 1, true);
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(24, 'Jason', 2, 1, false);
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(25, 'Sam', 2, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(26, 'Mitchell', 2, 2, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(27, 'Evan', 2, 2, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(28, 'Fraser', 2, 2, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(29, 'Mary', 2, 2, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(30, 'Paterson', 2, 2, true);
 
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(31, 'Churchill', 3, 1, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(32, 'Adam', 3, 1, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(33, 'Claire', 3, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(34, 'Fiona', 3, 1, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(35, 'Hudson', 3, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(36, 'Joe', 3, 2, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(37, 'Rebecca', 3, 2, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(38, 'Edward', 3, 2, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(39, 'Emma', 3, 2, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(40, 'Cameron', 3, 2, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(41, 'Gill', 3, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(42, 'Abraham', 3, 1, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(43, 'Jacob', 3, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(44, 'Nicola', 3, 1, false);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(45, 'Keith', 3, 1, true);
+
+insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(26, 'Churchill', 3, 1, false);
+insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(27, 'Adam', 3, 1, false);
+insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(28, 'Claire', 3, 1, true);

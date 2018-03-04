@@ -2,7 +2,7 @@ package com.recruiter.domain.vo;
 
 public enum CalculationType {
 
-	PERCENTAGE(1), FIXED(2);
+	FIXED(1), PERCENTAGE(2);
 
 	private final int id;
 

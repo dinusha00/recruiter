@@ -1,7 +1,5 @@
 package com.recruiter.service;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,6 +19,9 @@ public class HeadhunterService extends ServiceBase {
 
 	@Autowired
 	private HeadhunterRepository headhunterRepository;
+
+	@Autowired
+	private FeeService feeService;
 
 	public List<Headhunter> readHeadhunters() {
 		logger.info("calling HeadhunterService.readHeadhunters");
@@ -67,11 +68,7 @@ public class HeadhunterService extends ServiceBase {
 
 	public Calculation calculate(final Long id) {
 		logger.info("calling HeadhunterService.calculate id:" + id);
-		final NumberFormat formatter = new DecimalFormat("#0.00");
-		final Double amount = 1000.57;
-		final String breakdown = "N/A";
-
-		final Calculation calculation = new Calculation(currencyCode, formatter.format(amount), breakdown);
+		final Calculation calculation = feeService.calculate(id);
 		logger.info("returning from HeadhunterService.calculate calculation:{}", calculation);
 		return calculation;
 	}

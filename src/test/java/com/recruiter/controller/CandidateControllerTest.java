@@ -38,7 +38,7 @@ public class CandidateControllerTest extends ServiceBaseTest {
 		mvc.perform(MockMvcRequestBuilders.get("/candidate"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
-		.andExpect(jsonPath("$.size()", greaterThan(44)));
+		.andExpect(jsonPath("$.size()", greaterThan(27)));
 	}
 
 	@Test

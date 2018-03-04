@@ -30,4 +30,7 @@ public class ServiceBase {
 
 	@Value("${currency.code}")
 	protected String currencyCode;
+
+	@Value("${currency.format}")
+	protected String currencyFormat;
 }
