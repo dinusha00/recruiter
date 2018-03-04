@@ -5,7 +5,7 @@
 
     <groupId>com.recruiter</groupId>
     <artifactId>recruiter</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 	<name>recruiter</name>
   	<description>recruiter portal for agents to view head-hunting details</description>
   

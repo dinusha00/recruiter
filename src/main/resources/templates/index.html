@@ -3,24 +3,16 @@
 <head>
 	<meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <style>
-    .breakdown{
-    	padding: 40px;
-    	background-color: #eee;
-    	-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		border-radius: 10px;
-    }
-    </style>
 </head>
 <body>
 <div id="root">
 	<div class="container">
     	<div class="row">
         	<div class="twelve columns">
-            	<h1>Recruiter</h1>
+        		<h2><img src="/images/banner.png" height="15" width="90"/> </h2>
+            	<h1>Recruiter V1.0.0</h1>
                 <h6>
-                	Welcome to recruiter application version 1.0.
+                	Welcome to recruiter application.
                 	Below are the registered headhunters. Click on each to see the list of candidates recruited for month
                 	and afterwards click on the 'Calculate Fee' button to see the total fee.
                 </h6>
@@ -30,7 +22,7 @@
                     	 <items :items="subItems" v-if="currentId == headhunter.id"></items>
                     	 <div v-if="currentId == headhunter.id"> 
                     	 	<button v-on:click="calculate(headhunter)" >Calculate</button> 
-                    	 	<span v-if="isCalculate"> Currency: {{currency | 0}} ,  Amount : {{amount | 0}} </span>
+                    	 	<span v-if="isCalculate"><h5>Currency: {{currency | 0}} ,  Amount : {{amount | 0}}</h5></span>
                     	 	<div v-if="isCalculate" class="breakdown">{{breakdown}}</div>
                     	 </div>	
                         <hr />
