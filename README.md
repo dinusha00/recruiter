@@ -12,6 +12,7 @@ A simple web application to calculate the head hunter fees based on the successf
 - JPA/Hibernate
 - Logback
 - VueJS
+- Swagger
 
 ## Commands
 
@@ -43,6 +44,17 @@ CREATE TABLE RECRUITER.JOB_TITLE(ID INT PRIMARY KEY, NAME VARCHAR(50));
 INSERT INTO RECRUITER.JOB_TITLE VALUES(1, 'Mason');
 INSERT INTO RECRUITER.JOB_TITLE VALUES(2, 'Carpenter');
 ```
+
+## URLs
+
+- To access the application root page
+	http://localhost:8080
+- To access the h2 in-memory database 
+	http://localhost:8080/h2
+	give 'jdbc:h2:mem:recruiter' as the JDBC url
+- To access the swagger documentation
+	http://localhost:8080/swagger-ui.htm
+	
 
 ## History
 
