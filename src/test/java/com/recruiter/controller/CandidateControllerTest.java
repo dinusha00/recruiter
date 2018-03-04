@@ -117,4 +117,24 @@ public class CandidateControllerTest extends ServiceBaseTest {
 		}
 		assertTrue("deleting candidate that does not exists, did not return an exception", error);
 	}
+	
+	@Test
+	public void testRecruite() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/candidate/2/recruite"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.id", is(2)))
+		.andExpect(jsonPath("$.name", is("Thomson")))
+		.andExpect(jsonPath("$.recruited", is(true)));
+	}
+	
+	@Test
+	public void testReject() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/candidate/2/reject"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.id", is(2)))
+		.andExpect(jsonPath("$.name", is("Thomson")))
+		.andExpect(jsonPath("$.recruited", is(false)));
+	}
 }

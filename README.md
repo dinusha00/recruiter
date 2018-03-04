@@ -49,7 +49,7 @@ INSERT INTO RECRUITER.JOB_TITLE VALUES(2, 'Carpenter');
 
 - To access the application root page http://localhost:8080
 - To access the h2 in-memory database http://localhost:8080/h2 and give 'jdbc:h2:mem:recruiter' as the JDBC url
-- To access the swagger documentation http://localhost:8080/swagger-ui.htm
+- To access the swagger documentation http://localhost:8080/swagger-ui.html
 	
 
 ## History

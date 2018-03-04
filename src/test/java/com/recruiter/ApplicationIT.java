@@ -1,7 +1,6 @@
 package com.recruiter;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
@@ -19,23 +18,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ApplicationIT {
 
-    @LocalServerPort
-    private int port;
+	@LocalServerPort
+	private int port;
 
-    private URL base;
+	private URL base;
 
-    @Autowired
-    private TestRestTemplate template;
+	@Autowired
+	private TestRestTemplate template;
 
-    @Before
-    public void setUp() throws Exception {
-       // this.base = new URL("http://localhost:" + port + "/");
-    }
+	@Before
+	public void setUp() throws Exception {
+		this.base = new URL("http://localhost:" + port + "/");
+	}
 
-    @Test
-    public void getApplicationIT() throws Exception {
-//        ResponseEntity<String> response = template.getForEntity(base.toString(),
-//                String.class);
-//        assertThat(response.getBody(), equalTo("Greetings from Spring Boot!"));
-    }
+	@Test
+	public void getApplicationIT() throws Exception {
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		assertTrue("recruited application did not start properly as expected with welcome message", response.getBody().contains("Welcome to recruiter application"));
+	}
 }

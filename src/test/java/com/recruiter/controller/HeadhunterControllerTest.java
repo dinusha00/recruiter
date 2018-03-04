@@ -2,6 +2,7 @@ package com.recruiter.controller;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -119,5 +120,13 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 			error = true;
 		}
 		assertTrue("deleting headhunter that does not exists, did not return an exception", error);
+	}
+	
+	@Test
+	public void testGetHeadhunterCandidates() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/headhunter/1/candidates"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.size()", lessThan(19)));
 	}
 }

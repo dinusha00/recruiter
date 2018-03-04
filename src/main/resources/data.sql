@@ -12,7 +12,7 @@ insert into headhunter(id, name) values(5, 'Vincent');
 
 -- candidate
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(1, 'Arnold', 1, 1, true);
-insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(2, 'Thomson', 1, 1, true);
+insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(2, 'Thomson', 1, 1, false);
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(3, 'Jane', 1, 1, true);
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(4, 'Nash', 1, 1, true);
 insert into candidate(id, name, headhunterid, jobtitleid, recruited) values(5, 'Alison', 1, 1, false);
