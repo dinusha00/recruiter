@@ -26,6 +26,11 @@ public class Headhunter implements Serializable {
 	protected Headhunter() {
 	}
 
+	public Headhunter(final Long id, final String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public Headhunter(final String name) {
 		this.name = name;
 	}

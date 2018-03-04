@@ -30,6 +30,13 @@ public class Fee implements Serializable {
 	protected Fee() {
 	}
 
+	public Fee(final Long id, final int type, final int count, final double amount) {
+		this.id = id;
+		this.type = type;
+		this.count = count;
+		this.amount = amount;
+	}
+
 	public Fee(final int type, final int count, final double amount) {
 		this.type = type;
 		this.count = count;

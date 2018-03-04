@@ -9,12 +9,18 @@ public class ServiceBase {
 
 	@Value("${jobtitle.already.exists}")
 	protected String msgJobTitleAlreadyExists;
+	
+	@Value("${jobtitle.doesnot.exists}")
+	protected String msgJobTitleDoesnotExists;
 
 	@Value("${headhunter.cannotbe.empty}")
 	protected String msgHeadhunterCannotBeEmpty;
 
 	@Value("${headhunter.already.exists}")
 	protected String msgHeadhunterAlreadyExists;
+	
+	@Value("${headhunter.doesnot.exists}")
+	protected String msgHeadhunterDoesnotExists;
 
 	@Value("${candidate.cannotbe.empty}")
 	protected String msgCandidateCannotBeEmpty;

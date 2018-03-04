@@ -47,6 +47,11 @@ public class HeadhunterService extends ServiceBase {
 
 	public Headhunter updateHeadhunter(final Headhunter headhunter) {
 		logger.info("calling HeadhunterService.updateHeadhunter headhunter:{}", headhunter);
+		if (headhunter == null || null == headhunter.getId()) {
+			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
+		} else if (headhunterRepository.findOne(headhunter.getId()) == null) {
+			throw new IllegalArgumentException(msgHeadhunterDoesnotExists);
+		}
 		final Headhunter updatedHeadhunter = headhunterRepository.save(headhunter);
 		logger.info("returning from HeadhunterService.updateHeadhunter updatedHeadhunter:{}", updatedHeadhunter);
 		return updatedHeadhunter;

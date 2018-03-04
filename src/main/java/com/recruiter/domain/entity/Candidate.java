@@ -12,10 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@NamedQueries({ 
-	@NamedQuery(name = "Candidate.findByName", query = "SELECT c FROM Candidate c WHERE LOWER(c.name) = LOWER(?1)"),
-	@NamedQuery(name = "Candidate.findByHeadhunter", query = "SELECT c FROM Candidate c WHERE c.headhunterid = ?1") 
-})
+@NamedQueries({ @NamedQuery(name = "Candidate.findByName", query = "SELECT c FROM Candidate c WHERE LOWER(c.name) = LOWER(?1)"),
+		@NamedQuery(name = "Candidate.findByHeadhunter", query = "SELECT c FROM Candidate c WHERE c.headhunterid = ?1") })
 
 @Table(name = "candidate")
 public class Candidate implements Serializable {
@@ -32,18 +30,30 @@ public class Candidate implements Serializable {
 	@Column(nullable = false)
 	private Long headhunterid;
 
-	@Column(name = "createddate", columnDefinition = "DATE DEFAULT CURRENT_DATE")
-	private Date createdDate;
+	@Column(nullable = false)
+	private Long jobtitleid;
 
-	@Column(nullable = true)
-	private Boolean recruited;
+	@Column(nullable = false)
+	private Boolean recruited = false;
+
+	@Column(name = "createddate", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+	private Date createddate;
 
 	protected Candidate() {
 	}
 
-	public Candidate(final String name, final Long headhunterid, final Boolean recruited) {
+	public Candidate(final Long id, final String name, final Long headhunterid, final Long jobtitleid, final Boolean recruited) {
+		this.id = id;
 		this.name = name;
 		this.headhunterid = headhunterid;
+		this.jobtitleid = jobtitleid;
+		this.recruited = recruited;
+	}
+
+	public Candidate(final String name, final Long headhunterid, final Long jobtitleid, final Boolean recruited) {
+		this.name = name;
+		this.headhunterid = headhunterid;
+		this.jobtitleid = jobtitleid;
 		this.recruited = recruited;
 	}
 
@@ -56,6 +66,8 @@ public class Candidate implements Serializable {
 		builder.append(name);
 		builder.append(", headhunterid=");
 		builder.append(headhunterid);
+		builder.append(", jobtitleid=");
+		builder.append(jobtitleid);
 		builder.append("]");
 		builder.append(", recruited=");
 		builder.append(recruited);
@@ -80,5 +92,9 @@ public class Candidate implements Serializable {
 
 	public void setRecruited(Boolean recruited) {
 		this.recruited = recruited;
+	}
+
+	public Long getJobtitleid() {
+		return jobtitleid;
 	}
 }

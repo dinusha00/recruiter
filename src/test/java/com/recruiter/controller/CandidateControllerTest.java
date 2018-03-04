@@ -1,11 +1,12 @@
 package com.recruiter.controller;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,19 +18,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.recruiter.base.ServiceBaseTest;
 import com.recruiter.domain.entity.Candidate;
+import com.recruiter.domain.entity.JobTitle;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class CandidateControllerTest extends ServiceBaseTest{
+public class CandidateControllerTest extends ServiceBaseTest {
 
 	@Test
 	public void testInvalidPath() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/candidate-invalid"))
 		.andExpect(status().is4xxClientError())
-		.andExpect(content().string(""))
-		;
+		.andExpect(content().string(""));
 	}
 
 	@Test
@@ -37,23 +38,7 @@ public class CandidateControllerTest extends ServiceBaseTest{
 		mvc.perform(MockMvcRequestBuilders.get("/candidate"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
-//		.andExpect(jsonPath("$", hasSize(3)))
-		.andExpect(jsonPath("$[0].id", is(1)))
-		.andExpect(jsonPath("$[0].name", is("Virat Kohli")))
-		.andExpect(jsonPath("$[0].recruited", is(false)))
-		.andExpect(jsonPath("$[1].id", is(2)))
-		.andExpect(jsonPath("$[1].name", is("AB de Villiers")))
-		.andExpect(jsonPath("$[1].recruited", is(false)))
-		.andExpect(jsonPath("$[2].id", is(3)))
-		.andExpect(jsonPath("$[2].name", is("Chris Gayle")))
-		.andExpect(jsonPath("$[2].recruited", is(false)))
-		.andExpect(jsonPath("$[3].id", is(4)))
-		.andExpect(jsonPath("$[3].name", is("Rohit Sharma")))
-		.andExpect(jsonPath("$[3].recruited", is(false)))
-		.andExpect(jsonPath("$[4].id", is(5)))
-		.andExpect(jsonPath("$[4].name", is("Lasith Malinga")))
-		.andExpect(jsonPath("$[4].recruited", is(false)))
-		;
+		.andExpect(jsonPath("$.size()", greaterThan(44)));
 	}
 
 	@Test
@@ -62,46 +47,74 @@ public class CandidateControllerTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.id", is(1)))
-		.andExpect(jsonPath("$.name", is("Virat Kohli")))
-		.andExpect(jsonPath("$.recruited", is(false)))
-		;
+		.andExpect(jsonPath("$.name", is("Arnold")))
+		.andExpect(jsonPath("$.recruited", is(true)));
 	}
 
 	@Test
 	public void testGetCandidateNotAvailable() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/candidate/0"))
 		.andExpect(status().isOk())
-		.andExpect(content().string(""))
-		;
+		.andExpect(content().string(""));
 	}
 
 	@Test
 	public void testAddCandidate() throws Exception {
-		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L, false));
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L, 1L, false));
 		mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestCandidateAdd")))
-		.andExpect(jsonPath("$.recruited", is(false)))
-		;
+		.andExpect(jsonPath("$.recruited", is(false)));
+	}
+	
+	@Test
+	public void testUpdateCandidateDuplicate() throws Exception {
+		final String candidateJson = json(new Candidate("TestCandidateAddDuplicate", 1L, 1L, false));
+		mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
+		.andExpect(status().isCreated())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.name", is("TestCandidateAddDuplicate")));
+
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("duplicate candidate creation did not return exception on duplicate attempt", error);
 	}
 	
 	@Test
 	public void testUpdateCandidate() throws Exception {
-		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L, false));
+		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L, 1L, false));
 		mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestCandidateUpdate")))
-		.andExpect(jsonPath("$.recruited", is(false)))
-		;
+		.andExpect(jsonPath("$.recruited", is(false)));
 	}
 	
-	 @Test
-	 @Ignore(value="correct the test cases that will fail when data deletes and enable this test")
-	 public void testDeleteCandidate() throws Exception {
-	 mvc.perform(MockMvcRequestBuilders.delete("/candidate/1").contentType(MediaType.APPLICATION_JSON))
-	 .andExpect(status().isOk())
-	 ;
-	 }
+	@Test
+	public void testUpdateCandidateDoesNotExists() throws Exception {
+		final String candidateJson = json(new JobTitle("TestCandidateDoesNotExists"));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("updatig candidate that does not exists, did not return an exception", error);
+	}
+	
+	@Test
+	public void testDeleteCandidate() throws Exception {
+		boolean error = false;
+		try {
+			mvc.perform(MockMvcRequestBuilders.delete("/candidate/0").contentType(MediaType.APPLICATION_JSON));
+		} catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("deleting candidate that does not exists, did not return an exception", error);
+	}
 }

@@ -47,6 +47,11 @@ public class JobTitleService extends ServiceBase {
 
 	public JobTitle updateJobTitle(final JobTitle jobTitle) {
 		logger.info("calling JobTitleService.updateJobTitle jobTitle:{}", jobTitle);
+		if (jobTitle == null || null == jobTitle.getId()) {
+			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
+		} else if (jobTitleRepository.findOne(jobTitle.getId()) == null) {
+			throw new IllegalArgumentException(msgJobTitleDoesnotExists);
+		}
 		final JobTitle updatedJobTitle = jobTitleRepository.save(jobTitle);
 		logger.info("returning from JobTitleService.updateJobTitle updatedJobTitle:{}", updatedJobTitle);
 		return updatedJobTitle;
@@ -54,6 +59,11 @@ public class JobTitleService extends ServiceBase {
 
 	public void deleteJobTitle(final Long id) {
 		logger.info("calling JobTitleService.deleteJobTitle id:{}", id);
+		if (id == null) {
+			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
+		} else if (jobTitleRepository.findOne(id) == null) {
+			throw new IllegalArgumentException(msgJobTitleDoesnotExists);
+		}
 		jobTitleRepository.delete(id);
 	}
 }

@@ -26,6 +26,11 @@ public class JobTitle implements Serializable {
 	protected JobTitle() {
 	}
 
+	public JobTitle(final Long id, final String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public JobTitle(final String name) {
 		this.name = name;
 	}
