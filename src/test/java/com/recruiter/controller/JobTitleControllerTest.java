@@ -71,6 +71,12 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestJobTitleAdd")))
 		;
+		
+		mvc.perform(MockMvcRequestBuilders.post("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson))
+		.andExpect(status().isCreated())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.name", is("TestJobTitleAdd")))
+		;
 	}
 	
 	@Test

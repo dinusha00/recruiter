@@ -9,6 +9,6 @@ public class CalucationException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public CalucationException(final String detail) {
-		super("exception occured while processing calculations:" + detail);
+		super("error occured while processing calculations:" + detail);
 	}
 }

@@ -35,6 +35,11 @@ public class JobTitleService extends ServiceBase {
 
 	public JobTitle createJobTitle(final JobTitle jobTitle) {
 		logger.info("calling JobTitleService.createJobTitle jobTitle:{}", jobTitle);
+		if (jobTitle == null || null == jobTitle.getName() || jobTitle.getName().isEmpty()) {
+			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
+		} else if (jobTitleRepository.findByName(jobTitle.getName()) != null) {
+			throw new IllegalArgumentException(msgJobTitleAlreadyExists);
+		}
 		final JobTitle createdJobTitle = jobTitleRepository.save(jobTitle);
 		logger.info("returning from JobTitleService.createJobTitle createdJobTitle:{}", createdJobTitle);
 		return createdJobTitle;

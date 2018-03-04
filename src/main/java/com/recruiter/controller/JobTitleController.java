@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.recruiter.base.ServiceBase;
 import com.recruiter.domain.entity.JobTitle;
 import com.recruiter.service.JobTitleService;
 
 @RestController
 @RequestMapping("/jobtitle")
-public class JobTitleController extends ServiceBase {
+public class JobTitleController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

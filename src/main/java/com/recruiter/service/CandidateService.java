@@ -35,6 +35,11 @@ public class CandidateService extends ServiceBase {
 
 	public Candidate createCandidate(final Candidate candidate) {
 		logger.info("calling CandidateService.createCandidate candidate:{}", candidate);
+		if (candidate == null || null == candidate.getName() || candidate.getName().isEmpty()) {
+			throw new IllegalArgumentException(msgCandidateCannotBeEmpty);
+		} else if (candidateRepository.findByName(candidate.getName()) != null) {
+			throw new IllegalArgumentException(msgCandidateAlreadyExists);
+		}
 		final Candidate createdCandidate = candidateRepository.save(candidate);
 		logger.info("returning from CandidateService.createCandidate createdCandidate:{}", createdCandidate);
 		return createdCandidate;

@@ -1,14 +1,17 @@
 package com.recruiter.domain.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQuery(name = "Candidate.findByName", query = "SELECT c FROM Candidate c WHERE LOWER(c.name) = LOWER(?1)")
 @Table(name = "candidate")
 public class Candidate implements Serializable {
 
@@ -23,6 +26,9 @@ public class Candidate implements Serializable {
 
 	@Column(nullable = false)
 	private Long headhunterid;
+
+	@Column(name = "createddate", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+	private Date createdDate;
 
 	@Column(nullable = true)
 	private Boolean recruited;

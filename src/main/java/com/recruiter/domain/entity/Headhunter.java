@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQuery(name = "Headhunter.findByName", query = "SELECT h FROM Headhunter h WHERE LOWER(h.name) = LOWER(?1)")
 @Table(name = "headhunter")
 public class Headhunter implements Serializable {
 

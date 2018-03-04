@@ -8,4 +8,6 @@ import com.recruiter.domain.entity.JobTitle;
 
 @Transactional
 public interface JobTitleRepository extends JpaRepository<JobTitle, Long> {
+
+	public JobTitle findByName(final String name);
 }
