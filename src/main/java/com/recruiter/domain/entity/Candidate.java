@@ -69,9 +69,11 @@ public class Candidate implements Serializable {
 		builder.append(headhunterid);
 		builder.append(", jobtitleid=");
 		builder.append(jobtitleid);
-		builder.append("]");
 		builder.append(", recruited=");
 		builder.append(recruited);
+		builder.append(", createddate=");
+		builder.append(createddate);
+		builder.append("]");
 		return builder.toString();
 	}
 
@@ -97,5 +99,13 @@ public class Candidate implements Serializable {
 
 	public Long getJobtitleid() {
 		return jobtitleid;
+	}
+
+	public Date getCreateddate() {
+		return createddate;
+	}
+
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
 	}
 }
