@@ -72,7 +72,6 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestJobTitleAddDuplicate")));
-		
 		boolean error = false;
 		try{
 			mvc.perform(MockMvcRequestBuilders.post("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson));
@@ -89,6 +88,18 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("CarpenterUpdate")));
+	}
+	
+	@Test
+	public void testUpdateJobTitleDuplicate() throws Exception {
+		final String jobTitleJson = json(new JobTitle(2L, "Mason"));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("duplicate job title update did not return exception on duplicate attempt", error);
 	}
 	
 	@Test

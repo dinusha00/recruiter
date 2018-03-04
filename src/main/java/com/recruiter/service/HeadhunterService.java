@@ -39,21 +39,24 @@ public class HeadhunterService extends ServiceBase {
 
 	public Headhunter createHeadhunter(final Headhunter headhunter) {
 		logger.info("calling HeadhunterService.createHeadhunter headhunter:{}", headhunter);
-		if (headhunter == null || null == headhunter.getName() || headhunter.getName().isEmpty()) {
-			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
-		} else if (headhunterRepository.findByName(headhunter.getName()) != null) {
-			throw new IllegalArgumentException(msgHeadhunterAlreadyExists);
-		}
+		commonValidation(headhunter);
 		final Headhunter createdHeadhunter = headhunterRepository.save(headhunter);
 		logger.info("returning HeadhunterService.createHeadhunter createdHeadhunter:{}", createdHeadhunter);
 		return createdHeadhunter;
 	}
 
+	private void commonValidation(final Headhunter headhunter) {
+		if (headhunter == null || null == headhunter.getName() || headhunter.getName().isEmpty()) {
+			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
+		} else if (headhunterRepository.findByName(headhunter.getName()) != null) {
+			throw new IllegalArgumentException(msgHeadhunterAlreadyExists);
+		}
+	}
+
 	public Headhunter updateHeadhunter(final Headhunter headhunter) {
 		logger.info("calling HeadhunterService.updateHeadhunter headhunter:{}", headhunter);
-		if (headhunter == null || null == headhunter.getId()) {
-			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
-		} else if (headhunterRepository.findOne(headhunter.getId()) == null) {
+		commonValidation(headhunter);
+		if (headhunterRepository.findOne(headhunter.getId()) == null) {
 			throw new IllegalArgumentException(msgHeadhunterDoesnotExists);
 		}
 		final Headhunter updatedHeadhunter = headhunterRepository.save(headhunter);

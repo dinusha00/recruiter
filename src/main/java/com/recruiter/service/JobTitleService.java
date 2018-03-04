@@ -35,21 +35,24 @@ public class JobTitleService extends ServiceBase {
 
 	public JobTitle createJobTitle(final JobTitle jobTitle) {
 		logger.info("calling JobTitleService.createJobTitle jobTitle:{}", jobTitle);
-		if (jobTitle == null || null == jobTitle.getName() || jobTitle.getName().isEmpty()) {
-			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
-		} else if (jobTitleRepository.findByName(jobTitle.getName()) != null) {
-			throw new IllegalArgumentException(msgJobTitleAlreadyExists);
-		}
+		commonValidation(jobTitle);
 		final JobTitle createdJobTitle = jobTitleRepository.save(jobTitle);
 		logger.info("returning from JobTitleService.createJobTitle createdJobTitle:{}", createdJobTitle);
 		return createdJobTitle;
 	}
 
+	private void commonValidation(final JobTitle jobTitle) {
+		if (jobTitle == null || null == jobTitle.getName() || jobTitle.getName().isEmpty()) {
+			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
+		} else if (jobTitleRepository.findByName(jobTitle.getName()) != null) {
+			throw new IllegalArgumentException(msgJobTitleAlreadyExists);
+		}
+	}
+
 	public JobTitle updateJobTitle(final JobTitle jobTitle) {
 		logger.info("calling JobTitleService.updateJobTitle jobTitle:{}", jobTitle);
-		if (jobTitle == null || null == jobTitle.getId()) {
-			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
-		} else if (jobTitleRepository.findOne(jobTitle.getId()) == null) {
+		commonValidation(jobTitle);
+		if (jobTitleRepository.findOne(jobTitle.getId()) == null) {
 			throw new IllegalArgumentException(msgJobTitleDoesnotExists);
 		}
 		final JobTitle updatedJobTitle = jobTitleRepository.save(jobTitle);

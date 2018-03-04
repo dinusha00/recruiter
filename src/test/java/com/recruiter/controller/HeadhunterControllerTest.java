@@ -74,7 +74,6 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestHeadhunterAddDuplicate")));
-		
 		boolean error = false;
 		try{
 			mvc.perform(MockMvcRequestBuilders.post("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson));
@@ -91,6 +90,18 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestHeadhunterUpdate")));
+	}
+	
+	@Test
+	public void testUpdateHeadhunterDuplicate() throws Exception {
+		final String headhunterJson = json(new Headhunter(4L, "Wilson"));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("duplicate headhunter update did not return exception on duplicate attempt", error);
 	}
 	
 	@Test

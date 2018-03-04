@@ -27,6 +27,9 @@ public class ServiceBase {
 
 	@Value("${candidate.already.exists}")
 	protected String msgCandidateAlreadyExists;
+	
+	@Value("${candidate.doesnot.exists}")
+	protected String msgCandidateDoesnotExists;
 
 	@Value("${currency.code}")
 	protected String currencyCode;

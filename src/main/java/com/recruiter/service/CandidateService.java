@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.recruiter.base.ServiceBase;
 import com.recruiter.domain.entity.Candidate;
 import com.recruiter.domain.repository.CandidateRepository;
+import com.recruiter.domain.repository.HeadhunterRepository;
+import com.recruiter.domain.repository.JobTitleRepository;
 
 @Service
 public class CandidateService extends ServiceBase {
@@ -18,6 +20,12 @@ public class CandidateService extends ServiceBase {
 
 	@Autowired
 	private CandidateRepository candidateRepository;
+
+	@Autowired
+	private JobTitleRepository jobTitleRepository;
+
+	@Autowired
+	private HeadhunterRepository headhunterRepository;
 
 	public List<Candidate> readCandidates() {
 		logger.info("calling CandidateService.readCandidates");
@@ -35,18 +43,34 @@ public class CandidateService extends ServiceBase {
 
 	public Candidate createCandidate(final Candidate candidate) {
 		logger.info("calling CandidateService.createCandidate candidate:{}", candidate);
-		if (candidate == null || null == candidate.getName() || candidate.getName().isEmpty()) {
-			throw new IllegalArgumentException(msgCandidateCannotBeEmpty);
-		} else if (candidateRepository.findByName(candidate.getName()) != null) {
-			throw new IllegalArgumentException(msgCandidateAlreadyExists);
-		}
+		commonValidation(candidate);
 		final Candidate createdCandidate = candidateRepository.save(candidate);
 		logger.info("returning from CandidateService.createCandidate createdCandidate:{}", createdCandidate);
 		return createdCandidate;
 	}
 
+	private void commonValidation(final Candidate candidate) {
+		if (candidate == null || null == candidate.getName() || candidate.getName().isEmpty()) {
+			throw new IllegalArgumentException(msgCandidateCannotBeEmpty);
+		} else if (candidateRepository.findByName(candidate.getName()) != null) {
+			throw new IllegalArgumentException(msgCandidateAlreadyExists);
+		} else if (candidate.getHeadhunterid() == null) {
+			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
+		} else if (headhunterRepository.exists(candidate.getHeadhunterid()) == false) {
+			throw new IllegalArgumentException(msgHeadhunterDoesnotExists);
+		} else if (candidate.getJobtitleid() == null) {
+			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
+		} else if (jobTitleRepository.exists(candidate.getJobtitleid()) == false) {
+			throw new IllegalArgumentException(msgJobTitleDoesnotExists);
+		}
+	}
+
 	public Candidate updateCandidate(final Candidate candidate) {
 		logger.info("calling CandidateService.updateCandidate candidate:{}", candidate);
+		commonValidation(candidate);
+		if (jobTitleRepository.findOne(candidate.getId()) == null) {
+			throw new IllegalArgumentException(msgCandidateDoesnotExists);
+		}
 		final Candidate updatedCandidate = candidateRepository.save(candidate);
 		logger.info("returning CandidateService.updateCandidate updatedCandidate:{}", updatedCandidate);
 		return updatedCandidate;

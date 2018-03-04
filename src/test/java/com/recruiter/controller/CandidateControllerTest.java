@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.recruiter.base.ServiceBaseTest;
 import com.recruiter.domain.entity.Candidate;
-import com.recruiter.domain.entity.JobTitle;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -69,13 +68,60 @@ public class CandidateControllerTest extends ServiceBaseTest {
 	}
 	
 	@Test
-	public void testUpdateCandidateDuplicate() throws Exception {
+	public void testAddCandidateEmptyHeadhunter() throws Exception {
+		final String candidateJson = json(new Candidate("TestCandidateAdd", null, 1L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("empty headhunter id when creating candidate, did not return exception", error);
+	}
+	
+	@Test
+	public void testAddCandidateNonExistsHeadhunter() throws Exception {
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 0L, 1L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("non exists headhunter id when creating candidate, did not return exception", error);
+	}
+	
+	@Test
+	public void testAddCandidateEmptyJobTitle() throws Exception {
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L, null, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("empty jobtitle id when creating candidate, did not return exception", error);
+	}
+	
+	@Test
+	public void testAddCandidateNonExistsJobTitle() throws Exception {
+		final String candidateJson = json(new Candidate("TestCandidateAdd", 1L, null, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("non exists jobtitle id when creating candidate, did not return exception", error);
+	}
+	
+	@Test
+	public void testAddCandidateDuplicate() throws Exception {
 		final String candidateJson = json(new Candidate("TestCandidateAddDuplicate", 1L, 1L, false));
 		mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestCandidateAddDuplicate")));
-
 		boolean error = false;
 		try{
 			mvc.perform(MockMvcRequestBuilders.post("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
@@ -87,7 +133,7 @@ public class CandidateControllerTest extends ServiceBaseTest {
 	
 	@Test
 	public void testUpdateCandidate() throws Exception {
-		final String candidateJson = json(new Candidate("TestCandidateUpdate", 1L, 1L, false));
+		final String candidateJson = json(new Candidate(3L, "TestCandidateUpdate", 1L, 1L, false));
 		mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
@@ -96,8 +142,20 @@ public class CandidateControllerTest extends ServiceBaseTest {
 	}
 	
 	@Test
+	public void testUpdateCandidateDuplicate() throws Exception {
+		final String candidateJson = json(new Candidate(4L, "Arnold", 1L, 1L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("duplicate candidate update did not return exception on duplicate attempt", error);
+	}
+	
+	@Test
 	public void testUpdateCandidateDoesNotExists() throws Exception {
-		final String candidateJson = json(new JobTitle("TestCandidateDoesNotExists"));
+		final String candidateJson = json(new Candidate(0L, "TestCandidateUpdate", 1L, 1L, false));
 		boolean error = false;
 		try{
 			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
@@ -105,6 +163,54 @@ public class CandidateControllerTest extends ServiceBaseTest {
 			error = true;
 		}
 		assertTrue("updatig candidate that does not exists, did not return an exception", error);
+	}
+	
+	@Test
+	public void testUpdateCandidateEmptyHeadhunter() throws Exception {
+		final String candidateJson = json(new Candidate(1L, "TestCandidateUpdate", null, 1L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("updatig candidate without headhunter id, did not return an exception", error);
+	}
+	
+	@Test
+	public void testUpdateCandidateNonExistsHeadhunter() throws Exception {
+		final String candidateJson = json(new Candidate(1L, "TestCandidateUpdate", 0L, 1L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("updatig candidate with non exists headhunter id, did not return an exception", error);
+	}
+	
+	@Test
+	public void testUpdateCandidateEmptyJobTitle() throws Exception {
+		final String candidateJson = json(new Candidate(1L, "TestCandidateUpdate", 1L, null, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("updatig candidate without jobtitle id, did not return an exception", error);
+	}
+	
+	@Test
+	public void testUpdateCandidateNonExistsJobTitle() throws Exception {
+		final String candidateJson = json(new Candidate(1L, "TestCandidateUpdate", 1L, 0L, false));
+		boolean error = false;
+		try{
+			mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson));
+		}catch (final Exception e) {
+			error = true;
+		}
+		assertTrue("updatig candidate with non exists jobtitle id, did not return an exception", error);
 	}
 	
 	@Test
