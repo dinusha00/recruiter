@@ -30,27 +30,27 @@ public class HeadhunterController extends ServiceBase {
 	private HeadhunterService headhunterService;
 
 	@GetMapping
-	public List<Headhunter> getHeadhunters() {
-		logger.info("calling HeadhunterController.getHeadhunters");
-		final List<Headhunter> headhunters = headhunterService.getHeadhunters();
-		logger.info("returning from HeadhunterController.getHeadhunters headhunters.size():{}", headhunters.size());
+	public List<Headhunter> readHeadhunters() {
+		logger.info("calling HeadhunterController.readHeadhunters");
+		final List<Headhunter> headhunters = headhunterService.readHeadhunters();
+		logger.info("returning from HeadhunterController.readHeadhunters headhunters.size():{}", headhunters.size());
 		return headhunters;
 	}
 
 	@GetMapping(value = "/{id}")
-	public Headhunter getHeadhunter(@PathVariable final Long id) {
-		logger.info("calling HeadhunterController.getHeadhunter id:" + id);
-		final Headhunter headhunter = headhunterService.getHeadhunter(id);
-		logger.info("returning from HeadhunterController.getHeadhunter headhunter:{}", headhunter);
+	public Headhunter readHeadhunter(@PathVariable final Long id) {
+		logger.info("calling HeadhunterController.readHeadhunter id:" + id);
+		final Headhunter headhunter = headhunterService.readHeadhunter(id);
+		logger.info("returning from HeadhunterController.readHeadhunter headhunter:{}", headhunter);
 		return headhunter;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Headhunter addHeadhunter(@RequestBody final Headhunter headhunter) {
-		logger.info("calling HeadhunterController.addHeadhunter headhunter:{}", headhunter);
-		final Headhunter createdHeadhunter = headhunterService.addHeadhunter(headhunter);
-		logger.info("returning from HeadhunterController.addHeadhunter createdHeadhunter:{}", createdHeadhunter);
+	public Headhunter createHeadhunter(@RequestBody final Headhunter headhunter) {
+		logger.info("calling HeadhunterController.createHeadhunter headhunter:{}", headhunter);
+		final Headhunter createdHeadhunter = headhunterService.createHeadhunter(headhunter);
+		logger.info("returning from HeadhunterController.createHeadhunter createdHeadhunter:{}", createdHeadhunter);
 		return createdHeadhunter;
 	}
 

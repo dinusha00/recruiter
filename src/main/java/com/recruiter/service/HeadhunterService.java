@@ -19,24 +19,24 @@ public class HeadhunterService extends ServiceBase {
 	@Autowired
 	private HeadhunterRepository headhunterRepository;
 
-	public List<Headhunter> getHeadhunters() {
-		logger.info("calling HeadhunterService.getHeadhunters");
+	public List<Headhunter> readHeadhunters() {
+		logger.info("calling HeadhunterService.readHeadhunters");
 		final List<Headhunter> headhunters = headhunterRepository.findAll();
-		logger.info("returning from HeadhunterService.getHeadhunters headhunters:{}", headhunters);
+		logger.info("returning from HeadhunterService.readHeadhunters headhunters:{}", headhunters);
 		return headhunters;
 	}
 
-	public Headhunter getHeadhunter(final Long id) {
-		logger.info("calling HeadhunterService.getHeadhunter id:" + id);
+	public Headhunter readHeadhunter(final Long id) {
+		logger.info("calling HeadhunterService.readHeadhunter id:" + id);
 		final Headhunter headhunter = headhunterRepository.findOne(id);
-		logger.info("returning from HeadhunterService.getHeadhunter headhunter:{}", headhunter);
+		logger.info("returning from HeadhunterService.readHeadhunter headhunter:{}", headhunter);
 		return headhunter;
 	}
 
-	public Headhunter addHeadhunter(final Headhunter headhunter) {
-		logger.info("calling HeadhunterService.addHeadhunter headhunter:{}", headhunter);
+	public Headhunter createHeadhunter(final Headhunter headhunter) {
+		logger.info("calling HeadhunterService.createHeadhunter headhunter:{}", headhunter);
 		final Headhunter createdHeadhunter = headhunterRepository.save(headhunter);
-		logger.info("returning HeadhunterService.addHeadhunter createdHeadhunter:{}", createdHeadhunter);
+		logger.info("returning HeadhunterService.createHeadhunter createdHeadhunter:{}", createdHeadhunter);
 		return createdHeadhunter;
 	}
 

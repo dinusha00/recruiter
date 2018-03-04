@@ -30,27 +30,27 @@ public class JobTitleController extends ServiceBase {
 	private JobTitleService jobTitleService;
 
 	@GetMapping
-	public List<JobTitle> getJobTitles() {
-		logger.info("calling JobTitleController.getJobTitles");
-		final List<JobTitle> jobTitles = jobTitleService.getJobTitles();
-		logger.info("returning from JobTitleController.getJobTitles jobTitles:", jobTitles);
+	public List<JobTitle> readJobTitles() {
+		logger.info("calling JobTitleController.readJobTitles");
+		final List<JobTitle> jobTitles = jobTitleService.readJobTitles();
+		logger.info("returning from JobTitleController.readJobTitles jobTitles:", jobTitles);
 		return jobTitles;
 	}
 
 	@GetMapping(value = "/{id}")
-	public JobTitle getJobTitle(@PathVariable final Long id) {
-		logger.info("calling JobTitleController.getJobTitle id:" + id);
-		final JobTitle jobTitle = jobTitleService.getJobTitle(id);
-		logger.info("returning from JobTitleController.getJobTitle jobTitle:{}", jobTitle);
+	public JobTitle readJobTitle(@PathVariable final Long id) {
+		logger.info("calling JobTitleController.readJobTitle id:" + id);
+		final JobTitle jobTitle = jobTitleService.readJobTitle(id);
+		logger.info("returning from JobTitleController.readJobTitle jobTitle:{}", jobTitle);
 		return jobTitle;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public JobTitle addJobTitle(@RequestBody final JobTitle jobTitle) {
-		logger.info("calling JobTitleController.addJobTitle jobTitle:{}", jobTitle);
-		final JobTitle createdJobTitle = jobTitleService.addJobTitle(jobTitle);
-		logger.info("returning from JobTitleController.addJobTitle createdJobTitle:{}", createdJobTitle);
+	public JobTitle createJobTitle(@RequestBody final JobTitle jobTitle) {
+		logger.info("calling JobTitleController.createJobTitle jobTitle:{}", jobTitle);
+		final JobTitle createdJobTitle = jobTitleService.createJobTitle(jobTitle);
+		logger.info("returning from JobTitleController.createJobTitle createdJobTitle:{}", createdJobTitle);
 		return createdJobTitle;
 	}
 

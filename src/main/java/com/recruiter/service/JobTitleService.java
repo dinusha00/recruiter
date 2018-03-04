@@ -19,24 +19,24 @@ public class JobTitleService extends ServiceBase {
 	@Autowired
 	private JobTitleRepository jobTitleRepository;
 
-	public List<JobTitle> getJobTitles() {
-		logger.info("calling JobTitleService.getJobTitles");
+	public List<JobTitle> readJobTitles() {
+		logger.info("calling JobTitleService.readJobTitles");
 		final List<JobTitle> jobTitles = jobTitleRepository.findAll();
-		logger.info("returning from JobTitleService.getJobTitles jobTitles:{}", jobTitles);
+		logger.info("returning from JobTitleService.readJobTitles jobTitles:{}", jobTitles);
 		return jobTitles;
 	}
 
-	public JobTitle getJobTitle(final Long id) {
-		logger.info("calling JobTitleService.getJobTitle id:" + id);
+	public JobTitle readJobTitle(final Long id) {
+		logger.info("calling JobTitleService.readJobTitle id:" + id);
 		final JobTitle jobTitle = jobTitleRepository.findOne(id);
-		logger.info("returning from JobTitleService.getJobTitle jobTitle:{}", jobTitle);
+		logger.info("returning from JobTitleService.readJobTitle jobTitle:{}", jobTitle);
 		return jobTitle;
 	}
 
-	public JobTitle addJobTitle(final JobTitle jobTitle) {
-		logger.info("calling JobTitleService.addJobTitle jobTitle:{}", jobTitle);
+	public JobTitle createJobTitle(final JobTitle jobTitle) {
+		logger.info("calling JobTitleService.createJobTitle jobTitle:{}", jobTitle);
 		final JobTitle createdJobTitle = jobTitleRepository.save(jobTitle);
-		logger.info("returning from JobTitleService.addJobTitle createdJobTitle:{}", createdJobTitle);
+		logger.info("returning from JobTitleService.createJobTitle createdJobTitle:{}", createdJobTitle);
 		return createdJobTitle;
 	}
 

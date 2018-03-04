@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,17 +19,17 @@ public class AccountController extends ServiceBase {
 	@Autowired
 	private AccountService accountService;
 
-	@GetMapping
-	public String getAccountTotal() {
-		logger.info("calling AccountController.getAccountTotal");
-		accountService.getAccountTotal();
-		return "calling AccountController.getAccountTotal";
+	@GetMapping (value = "/{id}/total")
+	public String readAccountTotal() {
+		logger.info("calling AccountController.readAccountTotal");
+		accountService.readAccountTotal();
+		return "calling AccountController.readAccountTotal";
 	}
 
-	@PostMapping
-	public String getAccountBreakdown() {
-		logger.info("calling AccountController.getAccountBreakdown");
-		accountService.getAccountBreakdown();
-		return "calling AccountController.getAccountBreakdown";
+	@GetMapping (value = "/{id}/breakdown")
+	public String readAccountBreakdown() {
+		logger.info("calling AccountController.readAccountBreakdown");
+		accountService.readAccountBreakdown();
+		return "calling AccountController.readAccountBreakdown";
 	}
 }

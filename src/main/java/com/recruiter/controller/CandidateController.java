@@ -30,27 +30,27 @@ public class CandidateController extends ServiceBase {
 	private CandidateService candidateService;
 
 	@GetMapping
-	public List<Candidate> getCandidates() {
-		logger.info("calling CandidateController.getCandidates");
-		final List<Candidate> candidates = candidateService.getCandidates();
-		logger.info("returning from CandidateController.getCandidates candidates.size():{}", candidates.size());
+	public List<Candidate> readCandidates() {
+		logger.info("calling CandidateController.readCandidates");
+		final List<Candidate> candidates = candidateService.readCandidates();
+		logger.info("returning from CandidateController.readCandidates candidates.size():{}", candidates.size());
 		return candidates;
 	}
 
 	@GetMapping(value = "/{id}")
-	public Candidate getCandidate(@PathVariable final Long id) {
-		logger.info("calling CandidateController.getCandidate id:" + id);
-		final Candidate candidate = candidateService.getCandidate(id);
-		logger.info("returning from CandidateController.getCandidate candidate:{}", candidate);
+	public Candidate readCandidate(@PathVariable final Long id) {
+		logger.info("calling CandidateController.readCandidate id:" + id);
+		final Candidate candidate = candidateService.readCandidate(id);
+		logger.info("returning from CandidateController.readCandidate candidate:{}", candidate);
 		return candidate;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Candidate addCandidate(@RequestBody final Candidate candidate) {
-		logger.info("calling CandidateController.addCandidate candidate:{}", candidate);
-		final Candidate createdCandidate = candidateService.addCandidate(candidate);
-		logger.info("returning from CandidateController.addCandidate candidate:{}", createdCandidate);
+	public Candidate createCandidate(@RequestBody final Candidate candidate) {
+		logger.info("calling CandidateController.createCandidate candidate:{}", candidate);
+		final Candidate createdCandidate = candidateService.createCandidate(candidate);
+		logger.info("returning from CandidateController.createCandidate candidate:{}", createdCandidate);
 		return createdCandidate;
 	}
 

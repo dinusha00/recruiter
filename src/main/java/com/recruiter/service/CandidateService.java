@@ -19,24 +19,24 @@ public class CandidateService extends ServiceBase {
 	@Autowired
 	private CandidateRepository candidateRepository;
 
-	public List<Candidate> getCandidates() {
-		logger.info("calling CandidateService.getCandidates");
+	public List<Candidate> readCandidates() {
+		logger.info("calling CandidateService.readCandidates");
 		final List<Candidate> candidates = candidateRepository.findAll();
-		logger.info("returning from CandidateService.getCandidates candidates:{}", candidates);
+		logger.info("returning from CandidateService.readCandidates candidates:{}", candidates);
 		return candidates;
 	}
 
-	public Candidate getCandidate(final Long id) {
-		logger.info("calling CandidateService.getCandidate id:" + id);
+	public Candidate readCandidate(final Long id) {
+		logger.info("calling CandidateService.readCandidate id:" + id);
 		final Candidate candidate = candidateRepository.findOne(id);
-		logger.info("returning from CandidateService.getCandidate candidate:{}", candidate);
+		logger.info("returning from CandidateService.readCandidate candidate:{}", candidate);
 		return candidate;
 	}
 
-	public Candidate addCandidate(final Candidate candidate) {
-		logger.info("calling CandidateService.addCandidate candidate:{}", candidate);
+	public Candidate createCandidate(final Candidate candidate) {
+		logger.info("calling CandidateService.createCandidate candidate:{}", candidate);
 		final Candidate createdCandidate = candidateRepository.save(candidate);
-		logger.info("returning from CandidateService.addCandidate createdCandidate:{}", createdCandidate);
+		logger.info("returning from CandidateService.createCandidate createdCandidate:{}", createdCandidate);
 		return createdCandidate;
 	}
 

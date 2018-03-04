@@ -26,13 +26,13 @@ public class AccountControllerTest {
 
 	@Test
 	public void testGetAccountTotal() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string(equalTo("calling AccountController.getAccountTotal")));
+		mvc.perform(MockMvcRequestBuilders.get("/account/1/total").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string(equalTo("calling AccountController.readAccountTotal")));
 	}
 
 	@Test
 	public void testGetAccountBreakdown() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.post("/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string(equalTo("calling AccountController.getAccountBreakdown")));
+		mvc.perform(MockMvcRequestBuilders.get("/account/1/breakdown").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string(equalTo("calling AccountController.readAccountBreakdown")));
 	}
 }

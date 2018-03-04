@@ -14,16 +14,16 @@ public class AccountService extends ServiceBase {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping
-	public String getAccountTotal() {
-		logger.info("calling AccountService.getAccountTotal");
-		logger.info("returning from AccountService.getAccountTotal");
-		return "calling AccountService.getAccountTotal";
+	public String readAccountTotal() {
+		logger.info("calling AccountService.readAccountTotal");
+		logger.info("returning from AccountService.readAccountTotal");
+		return "calling AccountService.readAccountTotal";
 	}
 
 	@PostMapping
-	public String getAccountBreakdown() {
-		logger.info("calling AccountService.getAccountBreakdown");
-		logger.info("returning from AccountService.getAccountBreakdown");
-		return "calling AccountService.getAccountBreakdown";
+	public String readAccountBreakdown() {
+		logger.info("calling AccountService.readAccountBreakdown");
+		logger.info("returning from AccountService.readAccountBreakdown");
+		return "calling AccountService.readAccountBreakdown";
 	}
 }
