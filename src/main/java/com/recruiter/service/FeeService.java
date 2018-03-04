@@ -31,60 +31,38 @@ public class FeeService extends ServiceBase {
 		logger.info("calling FeeService.calculate id:" + id);
 		final NumberFormat formatter = new DecimalFormat(currencyFormat);
 
-		// get type1 (mason) fee info
-		final List<Fee> feesForTypeMason = feeRepository.findByJobtitleid(1);
-		final Fee feeFixedForTypeMason = feesForTypeMason.get(0);
-		final Fee feePercentageForTypeMason = feesForTypeMason.get(1);
-		logger.debug("feeFixedForTypeMason:{}", feeFixedForTypeMason);
-		logger.debug("feePercentageForTypeMason:{}", feePercentageForTypeMason);
+		final List<Candidate> masonCandidates = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
+		final List<Fee> masonFeeType = feeRepository.findByJobtitleid(1);
+		final Fee masonFixedFee = masonFeeType.get(0);
+		final Fee masonPercentFee = masonFeeType.get(1);
+		final int masonCount = masonCandidates.size();
+		final int masonPercentCount = new Double(Math.floor(masonCount / masonPercentFee.getCount())).intValue();
+		final Double masonAmount = (masonCount * masonFixedFee.getAmount()) + (masonPercentCount * masonPercentFee.getCount() * masonPercentFee.getAmount() / 100);
 
-		// get type2 (carpenter) fee info
-		final List<Fee> feesForTypeCarpenter = feeRepository.findByJobtitleid(2);
-		final Fee feeFixedForTypeCarpenter = feesForTypeCarpenter.get(0);
-		final Fee feePercentageForTypeCarpenter = feesForTypeCarpenter.get(1);
-		logger.debug("feeFixedForTypeCarpenter:{}", feeFixedForTypeCarpenter);
-		logger.debug("feePercentageForTypeCarpenter:{}", feePercentageForTypeCarpenter);
+		final List<Candidate> carpenterCandidates = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
+		final List<Fee> carpenterFeeType = feeRepository.findByJobtitleid(2);
+		final Fee carpenterFixedFee = carpenterFeeType.get(0);
+		final Fee carpenterPercentFee = carpenterFeeType.get(1);
+		final int carpenterCount = carpenterCandidates.size();
+		final int carpenterPercentCount = new Double(Math.floor(carpenterCount / carpenterPercentFee.getCount())).intValue();
+		final Double carpenterAmount = (carpenterCount * carpenterFixedFee.getAmount())
+				+ (carpenterPercentCount * carpenterPercentFee.getCount() * carpenterPercentFee.getAmount() / 100);
 
-		final List<Candidate> candidatesTypeMason = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
-		logger.debug("candidatesTypeMason:{}", candidatesTypeMason);
-		final List<Candidate> candidatesTypeCarpenter = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
-		logger.debug("candidatesTypeCarpenter:{}", candidatesTypeCarpenter);
+		logger.info("masonAmount:{} carpenterAmount:{}", masonAmount, carpenterAmount);
+		final Double amount = masonAmount + carpenterAmount;
 
-		final int countForTypeMason = candidatesTypeMason.size();
-		logger.debug("countForTypeMason:{}", countForTypeMason);
-		final int countForTypeCarpenter = candidatesTypeCarpenter.size();
-		logger.debug("countForTypeCarpenter:{}", countForTypeCarpenter);
-		final int countForTypeMasonPercentage = new Double(Math.floor(countForTypeMason / feePercentageForTypeMason.getCount())).intValue();
-		logger.debug("countForTypeMasonPercentage:{}", countForTypeMasonPercentage);
-		final int countForTypeCarpenterPercentage = new Double(Math.floor(countForTypeCarpenter / feePercentageForTypeCarpenter.getCount())).intValue();
-		logger.debug("countForTypeCarpenterPercentage:{}", countForTypeCarpenterPercentage);
-		final Double amountForTypeMason = (countForTypeMason * feeFixedForTypeMason.getAmount()) + (countForTypeMasonPercentage * feePercentageForTypeMason.getAmount());
-
-		final Double amountForTypeCarpenter = (countForTypeCarpenter * feeFixedForTypeCarpenter.getAmount())
-				+ (countForTypeCarpenterPercentage * feePercentageForTypeCarpenter.getAmount());
-
-		final Double amount = amountForTypeMason + amountForTypeCarpenter;
-		final StringBuilder breakdown = buildBreakdown(feeFixedForTypeMason, feePercentageForTypeMason, countForTypeMason, amountForTypeMason, countForTypeMasonPercentage,
-				feeFixedForTypeCarpenter, feePercentageForTypeCarpenter, countForTypeCarpenter, amountForTypeCarpenter, countForTypeCarpenterPercentage);
-
-		logger.info("amount:{}", amount);
-		logger.info("breakdown:{}", breakdown);
+		final StringBuilder breakdown = new StringBuilder();
+		breakdown.append("(");
+		breakdown.append("Calculation = ");
+		breakdown.append("Masons: [" + masonCount + "*" + formatter.format(masonFixedFee.getAmount()) + " + (" + masonPercentCount * masonPercentFee.getCount() + "*"
+				+ formatter.format(masonFixedFee.getAmount()) + ")*" + formatter.format(masonPercentFee.getAmount()) + "%]");
+		breakdown.append(" + ");
+		breakdown.append("Carpenters: [" + carpenterCount + "*" + formatter.format(carpenterFixedFee.getAmount()) + " + (" + carpenterPercentCount * carpenterPercentFee.getCount()
+				+ "*" + formatter.format(carpenterFixedFee.getAmount()) + ")*" + formatter.format(carpenterPercentFee.getAmount()) + "%]");
+		breakdown.append(")");
 
 		final Calculation calculation = new Calculation(currencyCode, formatter.format(amount), breakdown.toString());
 		logger.info("returning from FeeService.calculate calculation:{}", calculation);
 		return calculation;
-	}
-
-	private StringBuilder buildBreakdown(final Fee feeFixedForTypeMason, final Fee feePercentageForTypeMason, final int countForTypeMason, final Double amountForTypeMason,
-			final int countForTypeMasonPercentage, final Fee feeFixedForTypeCarpenter, final Fee feePercentageForTypeCarpenter, final int countForTypeCarpenter,
-			final Double amountForTypeCarpenter, final int countForTypeCarpenterPercentage) {
-		final StringBuilder breakdown = new StringBuilder();
-		breakdown.append("(");
-		breakdown.append("Masons:" + countForTypeMason + "*" + feeFixedForTypeMason.getAmount() + " + (" + countForTypeMasonPercentage + "*" + feePercentageForTypeMason.getAmount()
-				+ ")*" + feePercentageForTypeMason.getAmount() + "%");
-		breakdown.append("Carpenters:" + countForTypeCarpenter + "*" + feeFixedForTypeCarpenter.getAmount() + " + (" + countForTypeCarpenterPercentage + "*"
-				+ feePercentageForTypeCarpenter.getAmount() + ")*" + feePercentageForTypeCarpenter.getAmount() + "%");
-		breakdown.append(")");
-		return breakdown;
 	}
 }
