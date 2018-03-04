@@ -42,8 +42,6 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 		.andExpect(jsonPath("$[0].name", is("Mason")))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].name", is("Carpenter")))
-		.andExpect(jsonPath("$[2].id", is(3)))
-		.andExpect(jsonPath("$[2].name", is("Driver")))
 		;
 	}
 

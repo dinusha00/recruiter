@@ -37,13 +37,11 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		mvc.perform(MockMvcRequestBuilders.get("/headhunter"))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
-//		.andExpect(jsonPath("$", hasSize(3)))
+//		.andExpect(jsonPath("$", hasSize(2)))
 		.andExpect(jsonPath("$[0].id", is(1)))
 		.andExpect(jsonPath("$[0].name", is("James")))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].name", is("Mark")))
-		.andExpect(jsonPath("$[2].id", is(3)))
-		.andExpect(jsonPath("$[2].name", is("Peter")))
 		;
 	}
 

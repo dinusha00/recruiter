@@ -43,10 +43,7 @@ public class CandidateControllerTest extends ServiceBaseTest{
 		.andExpect(jsonPath("$[0].recruited", is(false)))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].name", is("Rohith")))
-		.andExpect(jsonPath("$[0].recruited", is(false)))
-		.andExpect(jsonPath("$[2].id", is(3)))
-		.andExpect(jsonPath("$[2].name", is("Dawan")))
-		.andExpect(jsonPath("$[0].recruited", is(false)))
+		.andExpect(jsonPath("$[1].recruited", is(false)))
 		;
 	}
 
