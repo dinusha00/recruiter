@@ -74,4 +74,11 @@ public class CandidateService extends ServiceBase {
 		logger.info("calling CandidateService.reject rejectedCandidate:{}", rejectedCandidate);
 		return rejectedCandidate;
 	}
+
+	public List<Candidate> readHeadhunterCandidates(final Long headhunterid) {
+		logger.info("calling CandidateService.readHeadhunterCandidates");
+		final List<Candidate> headhunterCandidates = candidateRepository.findByHeadhunterid(headhunterid);
+		logger.info("returning from CandidateService.readHeadhunterCandidates headhunterCandidates:{}", headhunterCandidates);
+		return headhunterCandidates;
+	}
 }

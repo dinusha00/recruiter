@@ -39,9 +39,9 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(content().contentType(contentType))
 //		.andExpect(jsonPath("$", hasSize(2)))
 		.andExpect(jsonPath("$[0].id", is(1)))
-		.andExpect(jsonPath("$[0].name", is("James")))
+		.andExpect(jsonPath("$[0].name", is("Royal Challengers Bangalore")))
 		.andExpect(jsonPath("$[1].id", is(2)))
-		.andExpect(jsonPath("$[1].name", is("Mark")))
+		.andExpect(jsonPath("$[1].name", is("Mumbai Indians")))
 		;
 	}
 
@@ -51,7 +51,7 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.id", is(1)))
-		.andExpect(jsonPath("$.name", is("James")))
+		.andExpect(jsonPath("$.name", is("Royal Challengers Bangalore")))
 		;
 	}
 

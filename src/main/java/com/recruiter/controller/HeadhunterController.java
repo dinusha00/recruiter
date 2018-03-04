@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.recruiter.domain.entity.Candidate;
 import com.recruiter.domain.entity.Headhunter;
+import com.recruiter.service.CandidateService;
 import com.recruiter.service.HeadhunterService;
 
 @RestController
@@ -27,6 +29,9 @@ public class HeadhunterController {
 
 	@Autowired
 	private HeadhunterService headhunterService;
+
+	@Autowired
+	private CandidateService candidateService;
 
 	@GetMapping
 	public List<Headhunter> readHeadhunters() {
@@ -65,5 +70,13 @@ public class HeadhunterController {
 	public void deleteHeadhunter(@PathVariable final Long id) {
 		logger.info("calling HeadhunterController.deleteHeadhunter id:{}", id);
 		headhunterService.deleteHeadhunter(id);
+	}
+
+	@GetMapping(value = "/{id}/candidates")
+	public List<Candidate> readHeadhunterCandidates(@PathVariable final Long id) {
+		logger.info("calling HeadhunterController.readHeadhunterCandidates id:" + id);
+		final List<Candidate> candidates = candidateService.readHeadhunterCandidates(id);
+		logger.info("returning from HeadhunterController.readHeadhunterCandidates candidates:{}", candidates);
+		return candidates;
 	}
 }

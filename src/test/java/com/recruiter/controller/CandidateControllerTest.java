@@ -39,11 +39,20 @@ public class CandidateControllerTest extends ServiceBaseTest{
 		.andExpect(content().contentType(contentType))
 //		.andExpect(jsonPath("$", hasSize(3)))
 		.andExpect(jsonPath("$[0].id", is(1)))
-		.andExpect(jsonPath("$[0].name", is("Virat")))
+		.andExpect(jsonPath("$[0].name", is("Virat Kohli")))
 		.andExpect(jsonPath("$[0].recruited", is(false)))
 		.andExpect(jsonPath("$[1].id", is(2)))
-		.andExpect(jsonPath("$[1].name", is("Rohith")))
+		.andExpect(jsonPath("$[1].name", is("AB de Villiers")))
 		.andExpect(jsonPath("$[1].recruited", is(false)))
+		.andExpect(jsonPath("$[2].id", is(3)))
+		.andExpect(jsonPath("$[2].name", is("Chris Gayle")))
+		.andExpect(jsonPath("$[2].recruited", is(false)))
+		.andExpect(jsonPath("$[3].id", is(4)))
+		.andExpect(jsonPath("$[3].name", is("Rohit Sharma")))
+		.andExpect(jsonPath("$[3].recruited", is(false)))
+		.andExpect(jsonPath("$[4].id", is(5)))
+		.andExpect(jsonPath("$[4].name", is("Lasith Malinga")))
+		.andExpect(jsonPath("$[4].recruited", is(false)))
 		;
 	}
 
@@ -53,7 +62,7 @@ public class CandidateControllerTest extends ServiceBaseTest{
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.id", is(1)))
-		.andExpect(jsonPath("$.name", is("Virat")))
+		.andExpect(jsonPath("$.name", is("Virat Kohli")))
 		.andExpect(jsonPath("$.recruited", is(false)))
 		;
 	}

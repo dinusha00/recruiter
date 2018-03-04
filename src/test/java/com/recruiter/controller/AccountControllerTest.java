@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class AccountControllerTest {
 	}
 
 	@Test
+	@Ignore(value="not implemented yet")
 	public void testGetAccountBreakdown() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/account/1/breakdown").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(content().string(equalTo("calling AccountController.readAccountBreakdown")));

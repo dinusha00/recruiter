@@ -7,11 +7,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@NamedQuery(name = "Candidate.findByName", query = "SELECT c FROM Candidate c WHERE LOWER(c.name) = LOWER(?1)")
+@NamedQueries({ 
+	@NamedQuery(name = "Candidate.findByName", query = "SELECT c FROM Candidate c WHERE LOWER(c.name) = LOWER(?1)"),
+	@NamedQuery(name = "Candidate.findByHeadhunter", query = "SELECT c FROM Candidate c WHERE c.headhunterid = ?1") 
+})
+
 @Table(name = "candidate")
 public class Candidate implements Serializable {
 
