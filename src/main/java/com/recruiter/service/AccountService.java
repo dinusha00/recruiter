@@ -23,7 +23,6 @@ public class AccountService extends ServiceBase {
 	@PostMapping
 	public String readAccountBreakdown() {
 		logger.info("calling AccountService.readAccountBreakdown");
-		logger.info("returning from AccountService.readAccountBreakdown");
-		return "calling AccountService.readAccountBreakdown";
+		throw new UnsupportedOperationException("this method is not implemented yet");
 	}
 }
