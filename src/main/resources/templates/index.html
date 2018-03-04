@@ -18,7 +18,7 @@
                 </h6>
                 <ul>
                     <li v-for="headhunter in headhunters">
-                    	<h5><a :href="getLink(headhunter)">{{headhunter.name}}</a></h5>
+                    	<h5><a :href="headhunterCandidates(headhunter)">{{headhunter.name}}</a></h5>
                         <hr />
                     </li>
                 </ul>
@@ -46,7 +46,7 @@ var app = new Vue({
             	this.headhunters = response.data;
             }.bind(this));
         },
-      	getLink(headhunter){
+        headhunterCandidates(headhunter){
        		return '/headhunter/'+ headhunter.id +'/candidates';
       	}
     }
