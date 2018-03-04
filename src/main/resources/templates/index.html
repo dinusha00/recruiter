@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
+	<meta charset="UTF-8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 <div id="root">
-    <div class="container">
-        <div class="row">
-            <div class="twelve columns">
-                <h1>Recruiter</h1>
+	<div class="container">
+    	<div class="row">
+        	<div class="twelve columns">
+            	<h1>Recruiter</h1>
                 <h6>
                 	Welcome to recruiter application version 1.0.
                 	Below are the registered headhunters. Click on each to see the list of candidates recruited for month
@@ -18,7 +18,7 @@
                 </h6>
                 <ul>
                     <li v-for="headhunter in headhunters">
-                        <h5><a :href="getLink(headhunter)">{{headhunter.name}}</a></h5>
+                    	<h5><a :href="getLink(headhunter)">{{headhunter.name}}</a></h5>
                         <hr />
                     </li>
                 </ul>
@@ -34,22 +34,22 @@
 </div>
 
 <script>
-    var app = new Vue({
-        el: '#root',
-        data : {headhunters: []},
-        mounted(){
-            this.fetchHeadhunters();
+var app = new Vue({
+	el: '#root',
+    data : {headhunters: []},
+    mounted(){
+    	this.fetchHeadhunters();
+	},
+    methods: {
+  		fetchHeadhunters(){
+        	axios.get("/headhunter").then(function(response){
+            	this.headhunters = response.data;
+            }.bind(this));
         },
-        methods: {
-            fetchHeadhunters(){
-                axios.get("/headhunter").then(function(response){
-                    this.headhunters = response.data;
-                }.bind(this));
-            },
-            getLink(headhunter){
-                return '/headhunter/' + headhunter.id;
-            }
-        }
-    });
+      	getLink(headhunter){
+       		return '/headhunter/'+ headhunter.id +'/candidates';
+      	}
+    }
+});
 </script>
 </html>
