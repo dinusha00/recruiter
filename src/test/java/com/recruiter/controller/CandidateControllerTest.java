@@ -2,10 +2,15 @@ package com.recruiter.controller;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -211,6 +216,22 @@ public class CandidateControllerTest extends ServiceBaseTest {
 			error = true;
 		}
 		assertTrue("updatig candidate with non exists jobtitle id, did not return an exception", error);
+	}
+	
+	@Test
+	public void testUpdateCandidateCreatedDateUnChanged() throws Exception {
+		final Candidate candidate = new Candidate(3L, "TestCandidateUpdate", 1L, 1L, false);
+		final Date invalidDate = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+		candidate.setCreatedDate(invalidDate);
+		final String candidateJson = json(candidate);
+		mvc.perform(MockMvcRequestBuilders.put("/candidate").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(candidateJson))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType));
+		
+		mvc.perform(MockMvcRequestBuilders.get("/candidate/3"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.createdDate", not(invalidDate.getTime())));
 	}
 	
 	@Test
