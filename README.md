@@ -1,10 +1,10 @@
 # Recruiter
 
-A simple web application to calculate the head hunter fees based on the successful recruitment they do.
+A simple web application to calculate the headhunter fees based on the successful recruitment they do.
 
-1. See a list of registered head hunters
+1. See a list of registered headhunters
 
-2. Click on a selected head hunter see the list of recruitment they have done for month period and calculate the fee
+2. Click on a selected headhunter see the list of recruitment they have done for month period and calculate the fee
 
 ## Prerequisite to run the application
 - Java 1.8
@@ -49,11 +49,11 @@ insert into jobtitle(id, name) values(2, 'Carpenter');
 insert into jobtitle(id, name) values(3, 'Driver');
 
 -- fee
-insert into fee(job_title_id, type, count, amount) values(1, 1, 1, 200); -- successfully recruited mason, the head hunter gets 200$
-insert into fee(job_title_id, type, count, amount) values(1, 2, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+insert into fee(job_title_id, type, count, amount) values(1, 1, 1, 200); -- successfully recruited mason, the headhunter gets 200$
+insert into fee(job_title_id, type, count, amount) values(1, 2, 5, 10); -- additional 10% commission is payed for the headhunter for set of 5 people
 
-insert into fee(job_title_id, type, count, amount) values(2, 1, 1, 250); -- successfully recruited carpenter, the head hunter gets 250$.
-insert into fee(job_title_id, type, count, amount) values(2, 1, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+insert into fee(job_title_id, type, count, amount) values(2, 1, 1, 250); -- successfully recruited carpenter, the headhunter gets 250$.
+insert into fee(job_title_id, type, count, amount) values(2, 1, 5, 10); -- additional 10% commission is payed for the headhunter for set of 5 people
 
 -- headhunter
 insert into headhunter(id, name) values(1, 'Wilson');
