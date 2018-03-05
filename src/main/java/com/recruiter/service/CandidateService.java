@@ -102,7 +102,7 @@ public class CandidateService extends ServiceBase {
 
 	public List<Candidate> readHeadhunterCandidates(final Long headhunterId) {
 		logger.info("calling CandidateService.readHeadhunterCandidates");
-		final List<Candidate> headhunterCandidates = candidateRepository.findByHeadhunterId(headhunterId);
+		final List<Candidate> headhunterCandidates = candidateRepository.findByHeadhunterIdAndRecruited(headhunterId, true);
 		logger.info("returning from CandidateService.readHeadhunterCandidates headhunterCandidates:{}", headhunterCandidates);
 		return headhunterCandidates;
 	}
