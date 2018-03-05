@@ -118,7 +118,7 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 	
 	 @Test
 	public void testDeleteHeadhunter() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.delete("/headhunter/5").contentType(MediaType.APPLICATION_JSON))
+		mvc.perform(MockMvcRequestBuilders.delete("/headhunter/4").contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
 	}
 	 

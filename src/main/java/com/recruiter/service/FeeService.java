@@ -37,7 +37,9 @@ public class FeeService extends ServiceBase {
 		final Fee masonPercentFee = masonFeeType.get(1);
 		final int masonCount = masonCandidates.size();
 		final int masonPercentCount = new Double(Math.floor(masonCount / masonPercentFee.getCount())).intValue();
-		final Double masonAmount = (masonCount * masonFixedFee.getAmount()) + (masonPercentCount * masonPercentFee.getCount() * masonPercentFee.getAmount() / 100);
+
+		final Double masonAmount = (masonCount * masonFixedFee.getAmount())
+				+ (masonPercentCount * masonPercentFee.getCount() * masonFixedFee.getAmount() * masonPercentFee.getAmount() / 100);
 
 		final List<Candidate> carpenterCandidates = candidateRepository.findByHeadhunterIdAndJobTitleIdAndRecruited(id, 2L, true);
 		final List<Fee> carpenterFeeType = feeRepository.findByJobTitleId(2);
@@ -46,7 +48,7 @@ public class FeeService extends ServiceBase {
 		final int carpenterCount = carpenterCandidates.size();
 		final int carpenterPercentCount = new Double(Math.floor(carpenterCount / carpenterPercentFee.getCount())).intValue();
 		final Double carpenterAmount = (carpenterCount * carpenterFixedFee.getAmount())
-				+ (carpenterPercentCount * carpenterPercentFee.getCount() * carpenterPercentFee.getAmount() / 100);
+				+ (carpenterPercentCount * carpenterPercentFee.getCount() * carpenterFixedFee.getAmount() * carpenterPercentFee.getAmount() / 100);
 
 		logger.info("masonAmount:{} carpenterAmount:{}", masonAmount, carpenterAmount);
 		final Double amount = masonAmount + carpenterAmount;
