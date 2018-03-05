@@ -140,4 +140,13 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.size()", lessThan(19)));
 	}
+	
+	@Test
+	public void testCalculate() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/headhunter/2/calculate"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.amount", is("2475.00")))
+		.andExpect(jsonPath("$.currency", is("USD")));
+	}
 }
