@@ -6,13 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@NamedQueries({ 
-	@NamedQuery(name = "Fee.findByJobtitleid", query = "SELECT f FROM Fee f WHERE f.jobtitleid = ?1") })
 @Table(name = "fee")
 public class Fee implements Serializable {
 
@@ -23,7 +19,7 @@ public class Fee implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	private int jobtitleid;
+	private int jobTitleId;
 
 	@Column(nullable = false)
 	private int type;
@@ -37,16 +33,16 @@ public class Fee implements Serializable {
 	protected Fee() {
 	}
 
-	public Fee(final Long id, final int jobtitleid, final int type, final int count, final double amount) {
+	public Fee(final Long id, final int jobTitleId, final int type, final int count, final double amount) {
 		this.id = id;
-		this.jobtitleid = jobtitleid;
+		this.jobTitleId = jobTitleId;
 		this.type = type;
 		this.count = count;
 		this.amount = amount;
 	}
 
-	public Fee(final int jobtitleid, final int type, final int count, final double amount) {
-		this.jobtitleid = jobtitleid;
+	public Fee(final int jobTitleId, final int type, final int count, final double amount) {
+		this.jobTitleId = jobTitleId;
 		this.type = type;
 		this.count = count;
 		this.amount = amount;
@@ -57,8 +53,8 @@ public class Fee implements Serializable {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("Fee [id=");
 		builder.append(id);
-		builder.append(", jobtitleid=");
-		builder.append(jobtitleid);
+		builder.append(", jobTitleId=");
+		builder.append(jobTitleId);
 		builder.append(", type=");
 		builder.append(type);
 		builder.append(", count=");
@@ -69,8 +65,8 @@ public class Fee implements Serializable {
 		return builder.toString();
 	}
 
-	public int getJobtitleid() {
-		return jobtitleid;
+	public int getJobTitleId() {
+		return jobTitleId;
 	}
 
 	public Long getId() {

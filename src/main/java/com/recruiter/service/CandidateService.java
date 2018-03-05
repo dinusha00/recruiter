@@ -54,13 +54,13 @@ public class CandidateService extends ServiceBase {
 			throw new IllegalArgumentException(msgCandidateCannotBeEmpty);
 		} else if (candidateRepository.findByName(candidate.getName()) != null) {
 			throw new IllegalArgumentException(msgCandidateAlreadyExists);
-		} else if (candidate.getHeadhunterid() == null) {
+		} else if (candidate.getHeadhunterId() == null) {
 			throw new IllegalArgumentException(msgHeadhunterCannotBeEmpty);
-		} else if (headhunterRepository.exists(candidate.getHeadhunterid()) == false) {
+		} else if (headhunterRepository.exists(candidate.getHeadhunterId()) == false) {
 			throw new IllegalArgumentException(msgHeadhunterDoesnotExists);
-		} else if (candidate.getJobtitleid() == null) {
+		} else if (candidate.getJobTitleId() == null) {
 			throw new IllegalArgumentException(msgJobTitleCannotBeEmpty);
-		} else if (jobTitleRepository.exists(candidate.getJobtitleid()) == false) {
+		} else if (jobTitleRepository.exists(candidate.getJobTitleId()) == false) {
 			throw new IllegalArgumentException(msgJobTitleDoesnotExists);
 		}
 	}
@@ -71,7 +71,7 @@ public class CandidateService extends ServiceBase {
 		if (jobTitleRepository.findOne(candidate.getId()) == null) {
 			throw new IllegalArgumentException(msgCandidateDoesnotExists);
 		}
-		candidate.setCreateddate(candidateRepository.findOne(candidate.getId()).getCreateddate());
+		candidate.setCreatedDate(candidateRepository.findOne(candidate.getId()).getCreatedDate());
 		final Candidate updatedCandidate = candidateRepository.save(candidate);
 		logger.info("returning CandidateService.updateCandidate updatedCandidate:{}", updatedCandidate);
 		return updatedCandidate;
@@ -100,9 +100,9 @@ public class CandidateService extends ServiceBase {
 		return rejectedCandidate;
 	}
 
-	public List<Candidate> readHeadhunterCandidates(final Long headhunterid) {
+	public List<Candidate> readHeadhunterCandidates(final Long headhunterId) {
 		logger.info("calling CandidateService.readHeadhunterCandidates");
-		final List<Candidate> headhunterCandidates = candidateRepository.findByHeadhunterid(headhunterid);
+		final List<Candidate> headhunterCandidates = candidateRepository.findByHeadhunterId(headhunterId);
 		logger.info("returning from CandidateService.readHeadhunterCandidates headhunterCandidates:{}", headhunterCandidates);
 		return headhunterCandidates;
 	}

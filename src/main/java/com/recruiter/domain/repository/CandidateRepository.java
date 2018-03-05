@@ -13,6 +13,10 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
 	public Candidate findByName(final String name);
 
-	public List<Candidate> findByHeadhunterid(final Long headhhunterid);
-	
+	public List<Candidate> findByHeadhunterId(final Long headhhunterId);
+
+	public List<Candidate> findByHeadhunterIdAndJobTitleId(final Long headhhunterId, final Long jobTitleId);
+
+	public List<Candidate> findByHeadhunterIdAndJobTitleIdAndRecruited(final Long headhhunterId, final Long jobTitleId, final Boolean recruited);
+
 }

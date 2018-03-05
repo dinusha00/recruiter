@@ -31,16 +31,16 @@ public class FeeService extends ServiceBase {
 		logger.info("calling FeeService.calculate id:" + id);
 		final NumberFormat formatter = new DecimalFormat(currencyFormat);
 
-		final List<Candidate> masonCandidates = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
-		final List<Fee> masonFeeType = feeRepository.findByJobtitleid(1);
+		final List<Candidate> masonCandidates = candidateRepository.findByHeadhunterIdAndJobTitleIdAndRecruited(id, 1L, true);
+		final List<Fee> masonFeeType = feeRepository.findByJobTitleId(1);
 		final Fee masonFixedFee = masonFeeType.get(0);
 		final Fee masonPercentFee = masonFeeType.get(1);
 		final int masonCount = masonCandidates.size();
 		final int masonPercentCount = new Double(Math.floor(masonCount / masonPercentFee.getCount())).intValue();
 		final Double masonAmount = (masonCount * masonFixedFee.getAmount()) + (masonPercentCount * masonPercentFee.getCount() * masonPercentFee.getAmount() / 100);
 
-		final List<Candidate> carpenterCandidates = candidateRepository.findByHeadhunterid(id); // TODO: Add the jobtitleid filter and monthly filter
-		final List<Fee> carpenterFeeType = feeRepository.findByJobtitleid(2);
+		final List<Candidate> carpenterCandidates = candidateRepository.findByHeadhunterIdAndJobTitleIdAndRecruited(id, 2L, true);
+		final List<Fee> carpenterFeeType = feeRepository.findByJobTitleId(2);
 		final Fee carpenterFixedFee = carpenterFeeType.get(0);
 		final Fee carpenterPercentFee = carpenterFeeType.get(1);
 		final int carpenterCount = carpenterCandidates.size();

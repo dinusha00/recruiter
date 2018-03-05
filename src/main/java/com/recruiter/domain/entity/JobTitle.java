@@ -6,12 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@NamedQuery(name = "JobTitle.findByName", query = "SELECT j FROM JobTitle j WHERE LOWER(j.name) = LOWER(?1)")
-@Table(name = "job_title")
+@Table(name = "jobtitle")
 public class JobTitle implements Serializable {
 
 	private static final long serialVersionUID = 1L;
