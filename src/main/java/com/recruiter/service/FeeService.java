@@ -18,6 +18,7 @@ import com.recruiter.domain.repository.FeeRepository;
 import com.recruiter.domain.repository.JobTitleRepository;
 import com.recruiter.domain.vo.Calculation;
 import com.recruiter.domain.vo.FeeCalculationType;
+import com.recruiter.math.Calculator;
 
 @Service
 public class FeeService extends ServiceBase {
@@ -40,7 +41,7 @@ public class FeeService extends ServiceBase {
 		final NumberFormat formatter = new DecimalFormat(currencyFormat);
 		Double total = 0.0;
 		int count = 0;
-		startBreakdown(breakdown);
+		Calculator.getInstance().startBreakdown(feeCalculation, breakdown);
 		for (final JobTitle jobTitle : jobTitles) {
 			count++;
 			final Long jobTitleId = jobTitle.getId();
@@ -57,51 +58,16 @@ public class FeeService extends ServiceBase {
 			jobTitlePercentCount = new Double(Math.floor(jobTitleCount / jobTitlePercentFeeCount)).intValue();
 			jobTitleFixedFeeAamount = jobTitleFixedFee.getAmount();
 			jobTitlePercentFeeAmount = jobTitlePercentFee.getAmount();
-			final Double jobTitleAmount = calculateJobTitleAmount(jobTitleCount, jobTitlePercentCount, jobTitlePercentFeeCount, jobTitleFixedFeeAamount, jobTitlePercentFeeAmount);
+			final Double jobTitleAmount = Calculator.getInstance().calculateFee(jobTitleCount, jobTitlePercentCount, jobTitlePercentFeeCount, jobTitleFixedFeeAamount,
+					jobTitlePercentFeeAmount);
 			logger.info("jobTitle.getName:{} jobTitleAmount:{}", jobTitleName, jobTitleAmount);
 			total += jobTitleAmount;
-			generateBreakdown(jobTitles, breakdown, formatter, count, jobTitleName, jobTitleCount, jobTitleFixedFeeAamount, jobTitlePercentCount, jobTitlePercentFeeCount,
-					jobTitlePercentFeeAmount);
+			Calculator.getInstance().generateBreakdown(jobTitles, breakdown, formatter, count, jobTitleName, jobTitleCount, jobTitleFixedFeeAamount, jobTitlePercentCount,
+					jobTitlePercentFeeCount, jobTitlePercentFeeAmount);
 		}
-		endBreakdown(breakdown);
+		Calculator.getInstance().endBreakdown(breakdown);
 		final Calculation calculation = new Calculation(currencyCode, formatter.format(total), breakdown.toString());
 		logger.info("returning from FeeService.calculate calculation:{}", calculation);
 		return calculation;
-	}
-
-	private Double calculateJobTitleAmount(final int jobTitleCount, final int jobTitlePercentCount, final int jobTitlePercentFeeCount, final double jobTitleFixedFeeAamount,
-			final double jobTitlePercentFeeAmount) {
-		final Double jobTitleAmount = (jobTitleCount * jobTitleFixedFeeAamount)
-				+ (jobTitlePercentCount * jobTitlePercentFeeCount * jobTitleFixedFeeAamount * jobTitlePercentFeeAmount / 100);
-		return jobTitleAmount;
-	}
-
-	private void endBreakdown(final StringBuilder breakdown) {
-		breakdown.append(")");
-	}
-
-	private void startBreakdown(final StringBuilder breakdown) {
-		breakdown.append("(");
-		breakdown.append(feeCalculation);
-		breakdown.append(" = ");
-	}
-
-	private void generateBreakdown(final List<JobTitle> jobTitles, final StringBuilder breakdown, final NumberFormat formatter, int count, final String jobTitleName,
-			int jobTitleCount, double jobTitleFixedFeeAamount, int jobTitlePercentCount, int jobTitlePercentFeeCount, double jobTitlePercentFeeAmount) {
-		breakdown.append(jobTitleName);
-		breakdown.append(": [");
-		breakdown.append(jobTitleCount);
-		breakdown.append("*");
-		breakdown.append(formatter.format(jobTitleFixedFeeAamount));
-		breakdown.append(" + (");
-		breakdown.append(jobTitlePercentCount * jobTitlePercentFeeCount);
-		breakdown.append("*");
-		breakdown.append(formatter.format(jobTitleFixedFeeAamount));
-		breakdown.append(")*");
-		breakdown.append(formatter.format(jobTitlePercentFeeAmount));
-		breakdown.append("%]");
-		if (count < jobTitles.size()) {
-			breakdown.append(" + ");
-		}
 	}
 }
