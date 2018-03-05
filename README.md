@@ -89,9 +89,9 @@ insert into candidate(id, name, headhunter_id, job_title_id, recruited) values(2
 
 ## URLs
 
-- To access the application root page http://localhost:8080/recruiter
-- To access the h2 in-memory database http://localhost:8080/recruiter/h2 and give 'jdbc:h2:mem:recruiter' as the JDBC url
-- To access the swagger documentation http://localhost:8080/recruiter/swagger-ui.html
+- Application root page http://localhost:8080/recruiter
+- H2 in-memory database http://localhost:8080/recruiter/h2 and give 'jdbc:h2:mem:recruiter' as the JDBC url
+- Swagger API http://localhost:8080/recruiter/swagger-ui.html
 	
 
 ## History
