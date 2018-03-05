@@ -11,5 +11,7 @@ import com.recruiter.domain.entity.Fee;
 @Transactional
 public interface FeeRepository extends JpaRepository<Fee, Long> {
 
-	public List<Fee> findByJobTitleId(final int jobTitleId);
+	public List<Fee> findByJobTitleId(final Long jobTitleId);
+
+	public Fee findByJobTitleIdAndType(final Long jobTitleId, final int type);
 }

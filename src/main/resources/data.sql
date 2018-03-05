@@ -4,11 +4,14 @@ insert into jobtitle(id, name) values(2, 'Carpenter');
 insert into jobtitle(id, name) values(3, 'Driver');
 
 -- fee
-insert into fee(job_title_id, type, count, amount) values(1, 1, 1, 200); -- successfully recruited mason, the head hunter gets 200$
-insert into fee(job_title_id, type, count, amount) values(1, 2, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+insert into fee(job_title_id, type, count, amount) values(1, 1, 1, 200); -- successfully recruited mason, gets 200$ (fixed amount:type=1)
+insert into fee(job_title_id, type, count, amount) values(1, 2, 5, 10); -- additional 10% commission for set of 5 masons (% amount:type=2)
 
-insert into fee(job_title_id, type, count, amount) values(2, 1, 1, 250); -- successfully recruited carpenter, the head hunter gets 250$.
-insert into fee(job_title_id, type, count, amount) values(2, 1, 5, 10); -- additional 10% commission is payed for the head hunter for set of 5 people
+insert into fee(job_title_id, type, count, amount) values(2, 1, 1, 250); -- successfully recruited carpenter, gets 250$ (fixed amount:type=1)
+insert into fee(job_title_id, type, count, amount) values(2, 2, 5, 10); -- additional 10% commission for set of 5 carpenters (% amount:type=2)
+
+insert into fee(job_title_id, type, count, amount) values(3, 1, 1, 300); -- successfully recruited driver, gets 300$ (fixed amount:type=1)
+insert into fee(job_title_id, type, count, amount) values(3, 2, 5, 10); -- additional 10% commission for set of 5 drivers (% amount:type=2)
 
 -- headhunter
 insert into headhunter(id, name) values(1, 'Wilson');

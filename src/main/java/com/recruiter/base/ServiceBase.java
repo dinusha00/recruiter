@@ -27,7 +27,7 @@ public class ServiceBase {
 
 	@Value("${candidate.already.exists}")
 	protected String msgCandidateAlreadyExists;
-	
+
 	@Value("${candidate.doesnot.exists}")
 	protected String msgCandidateDoesnotExists;
 
@@ -36,4 +36,7 @@ public class ServiceBase {
 
 	@Value("${currency.format}")
 	protected String currencyFormat;
+
+	@Value("${fee.calculation}")
+	protected String feeCalculation;
 }

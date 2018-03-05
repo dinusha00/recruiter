@@ -3,22 +3,23 @@ package com.recruiter.domain.vo;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum CalculationType {
+public enum FeeCalculationType {
 
 	FIXED(1), PERCENTAGE(2);
 
-	private final Long value;
-	private final static Map<Long, CalculationType> values = new HashMap<>();
+	private final int value;
 
-	private CalculationType(long value) {
+	private final static Map<Integer, FeeCalculationType> values = new HashMap<>();
+
+	private FeeCalculationType(int value) {
 		this.value = value;
 	}
 
-	public Long toValue() {
+	public int toValue() {
 		return value;
 	}
 
-	public static CalculationType fromValue(final Long value) {
+	public static FeeCalculationType fromValue(final int value) {
 		return values.get(value);
 	}
 

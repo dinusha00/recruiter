@@ -6,6 +6,10 @@ A simple web application to calculate the head hunter fees based on the successf
 
 2. Click on a selected head hunter see the list of recruitment they have done for month period and calculate the fee
 
+## Prerequisite to run the application
+- Java 1.8
+
+
 ## Technologies used
 - Spring boot
 - H2 database
@@ -84,7 +88,6 @@ insert into candidate(id, name, headhunter_id, job_title_id, recruited) values(2
 insert into candidate(id, name, headhunter_id, job_title_id, recruited) values(23, 'Smith', 2, 2, true);
 insert into candidate(id, name, headhunter_id, job_title_id, recruited) values(24, 'Jason', 2, 2, true);
 insert into candidate(id, name, headhunter_id, job_title_id, recruited) values(25, 'Sam', 2, 2, true);
-
 ```
 
 ## URLs

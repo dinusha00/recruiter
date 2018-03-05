@@ -19,7 +19,7 @@ public class Fee implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	private int jobTitleId;
+	private Long jobTitleId;
 
 	@Column(nullable = false)
 	private int type;
@@ -33,7 +33,7 @@ public class Fee implements Serializable {
 	protected Fee() {
 	}
 
-	public Fee(final Long id, final int jobTitleId, final int type, final int count, final double amount) {
+	public Fee(final Long id, final Long jobTitleId, final int type, final int count, final double amount) {
 		this.id = id;
 		this.jobTitleId = jobTitleId;
 		this.type = type;
@@ -41,7 +41,7 @@ public class Fee implements Serializable {
 		this.amount = amount;
 	}
 
-	public Fee(final int jobTitleId, final int type, final int count, final double amount) {
+	public Fee(final Long jobTitleId, final int type, final int count, final double amount) {
 		this.jobTitleId = jobTitleId;
 		this.type = type;
 		this.count = count;
@@ -65,7 +65,7 @@ public class Fee implements Serializable {
 		return builder.toString();
 	}
 
-	public int getJobTitleId() {
+	public Long getJobTitleId() {
 		return jobTitleId;
 	}
 
