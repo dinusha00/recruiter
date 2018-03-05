@@ -9,7 +9,7 @@
 	<div class="container">
     	<div class="row">
         	<div class="twelve columns">
-        		<h2><img src="/images/banner.png" height="15" width="90"/> </h2>
+        		<h2><img src="/recruiter/images/banner.png" height="15" width="90"/> </h2>
             	<h1>Recruiter V1.0.0</h1>
                 <h6>
                 	Welcome to recruiter application.
@@ -34,8 +34,8 @@
 </div>
 
 <div>
-	<script src="/js/vue.min.js"></script>
-	<script src="/js/axios.min.js"></script>
+	<script src="/recruiter/js/vue.min.js"></script>
+	<script src="/recruiter/js/axios.min.js"></script>
 </div>
 
 <script>
@@ -67,7 +67,7 @@ var app = new Vue({
 	},
     methods: {
   		fetchHeadhunters(){
-        	axios.get("/headhunter").then(function(response){
+        	axios.get("/recruiter/headhunter").then(function(response){
             	this.headhunters = response.data;
             }.bind(this));
         },
