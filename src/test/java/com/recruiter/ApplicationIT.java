@@ -28,7 +28,7 @@ public class ApplicationIT {
 
 	@Before
 	public void setUp() throws Exception {
-		this.base = new URL("http://localhost:" + port + "/");
+		this.base = new URL("http://localhost:" + port + "/recruiter");
 	}
 
 	@Test

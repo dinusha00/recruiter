@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.recruiter.domain.entity.JobTitle;
+import com.recruiter.exception.RecruiterException;
 import com.recruiter.service.JobTitleService;
 
 @RestController
@@ -30,40 +31,60 @@ public class JobTitleController {
 
 	@GetMapping
 	public List<JobTitle> readJobTitles() {
-		logger.info("calling JobTitleController.readJobTitles");
-		final List<JobTitle> jobTitles = jobTitleService.readJobTitles();
-		logger.info("returning from JobTitleController.readJobTitles jobTitles:", jobTitles);
-		return jobTitles;
+		try {
+			logger.info("calling JobTitleController.readJobTitles");
+			final List<JobTitle> jobTitles = jobTitleService.readJobTitles();
+			logger.info("returning from JobTitleController.readJobTitles jobTitles:", jobTitles);
+			return jobTitles;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@GetMapping(value = "/{id}")
 	public JobTitle readJobTitle(@PathVariable final Long id) {
-		logger.info("calling JobTitleController.readJobTitle id:" + id);
-		final JobTitle jobTitle = jobTitleService.readJobTitle(id);
-		logger.info("returning from JobTitleController.readJobTitle jobTitle:{}", jobTitle);
-		return jobTitle;
+		try {
+			logger.info("calling JobTitleController.readJobTitle id:" + id);
+			final JobTitle jobTitle = jobTitleService.readJobTitle(id);
+			logger.info("returning from JobTitleController.readJobTitle jobTitle:{}", jobTitle);
+			return jobTitle;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public JobTitle createJobTitle(@RequestBody final JobTitle jobTitle) {
-		logger.info("calling JobTitleController.createJobTitle jobTitle:{}", jobTitle);
-		final JobTitle createdJobTitle = jobTitleService.createJobTitle(jobTitle);
-		logger.info("returning from JobTitleController.createJobTitle createdJobTitle:{}", createdJobTitle);
-		return createdJobTitle;
+		try {
+			logger.info("calling JobTitleController.createJobTitle jobTitle:{}", jobTitle);
+			final JobTitle createdJobTitle = jobTitleService.createJobTitle(jobTitle);
+			logger.info("returning from JobTitleController.createJobTitle createdJobTitle:{}", createdJobTitle);
+			return createdJobTitle;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@PutMapping
 	public JobTitle updateJobTitle(@RequestBody final JobTitle jobTitle) {
-		logger.info("calling JobTitleController.updateJobTitle jobTitle:{}", jobTitle);
-		final JobTitle updatedJobTitle = jobTitleService.updateJobTitle(jobTitle);
-		logger.info("returning from JobTitleController.updateJobTitle updatedJobTitle:{}", updatedJobTitle);
-		return updatedJobTitle;
+		try {
+			logger.info("calling JobTitleController.updateJobTitle jobTitle:{}", jobTitle);
+			final JobTitle updatedJobTitle = jobTitleService.updateJobTitle(jobTitle);
+			logger.info("returning from JobTitleController.updateJobTitle updatedJobTitle:{}", updatedJobTitle);
+			return updatedJobTitle;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public void deleteJobTitle(@PathVariable final Long id) {
-		logger.info("calling JobTitleController.deleteJobTitle id:{}", id);
-		jobTitleService.deleteJobTitle(id);
+		try {
+			logger.info("calling JobTitleController.deleteJobTitle id:{}", id);
+			jobTitleService.deleteJobTitle(id);
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 }

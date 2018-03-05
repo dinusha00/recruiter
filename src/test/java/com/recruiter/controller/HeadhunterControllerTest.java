@@ -3,7 +3,6 @@ package com.recruiter.controller;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,7 +28,7 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 
 	@Test
 	public void testInvalidPath() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/headhunter-invalid"))
+		mvc.perform(MockMvcRequestBuilders.get("/headhunter/invalid"))
 		.andExpect(status().is4xxClientError())
 		.andExpect(content().string(""));
 	}
@@ -74,13 +73,9 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestHeadhunterAddDuplicate")));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.post("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("duplicate headhunter creation did not return exception on duplicate attempt", error);
+		
+		mvc.perform(MockMvcRequestBuilders.post("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test
@@ -95,25 +90,15 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 	@Test
 	public void testUpdateHeadhunterDuplicate() throws Exception {
 		final String headhunterJson = json(new Headhunter(4L, "Wilson"));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("duplicate headhunter update did not return exception on duplicate attempt", error);
+		mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test
 	public void testUpdateHeadhunterDoesNotExists() throws Exception {
 		final String headhunterJson = json(new JobTitle("TestHeadhunterUpdateNotExists"));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("updatig headhunter that does not exists, did not return an exception", error);
+		mvc.perform(MockMvcRequestBuilders.put("/headhunter").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(headhunterJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	 @Test
@@ -124,13 +109,8 @@ public class HeadhunterControllerTest extends ServiceBaseTest{
 	 
 	@Test
 	public void testDeleteHeadhunterDoesNotExists() throws Exception {
-		boolean error = false;
-		try {
-			mvc.perform(MockMvcRequestBuilders.delete("/headhunter/0").contentType(MediaType.APPLICATION_JSON));
-		} catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("deleting headhunter that does not exists, did not return an exception", error);
+		mvc.perform(MockMvcRequestBuilders.delete("/headhunter/0").contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test

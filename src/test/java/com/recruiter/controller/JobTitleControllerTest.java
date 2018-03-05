@@ -2,7 +2,6 @@ package com.recruiter.controller;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +26,7 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 
 	@Test
 	public void testInvalidPath() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/jobtitle-invalid"))
+		mvc.perform(MockMvcRequestBuilders.get("/jobtitle/invalid"))
 		.andExpect(status().is4xxClientError())
 		.andExpect(content().string(""));
 	}
@@ -72,13 +71,9 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 		.andExpect(status().isCreated())
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.name", is("TestJobTitleAddDuplicate")));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.post("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("duplicate job title creation did not return exception on duplicate attempt", error);
+		
+		mvc.perform(MockMvcRequestBuilders.post("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test
@@ -93,25 +88,15 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 	@Test
 	public void testUpdateJobTitleDuplicate() throws Exception {
 		final String jobTitleJson = json(new JobTitle(2L, "Mason"));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.put("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("duplicate job title update did not return exception on duplicate attempt", error);
+		mvc.perform(MockMvcRequestBuilders.put("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test
 	public void testUpdateJobTitleDoesNotExists() throws Exception {
 		final String jobTitleJson = json(new JobTitle("TestJobTitleNotExists"));
-		boolean error = false;
-		try{
-			mvc.perform(MockMvcRequestBuilders.put("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson));
-		}catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("updatig job title that does not exists, did not return an exception", error);
+		mvc.perform(MockMvcRequestBuilders.put("/jobtitle").accept(MediaType.APPLICATION_JSON).contentType(contentType).content(jobTitleJson))
+		.andExpect(status().is5xxServerError());
 	}
 	
 	@Test
@@ -122,12 +107,7 @@ public class JobTitleControllerTest extends ServiceBaseTest{
 	
 	@Test
 	public void testDeleteJobTitleDoesNotExists() throws Exception {
-		boolean error = false;
-		try {
-			mvc.perform(MockMvcRequestBuilders.delete("/jobtitle/0").contentType(MediaType.APPLICATION_JSON));
-		} catch (final Exception e) {
-			error = true;
-		}
-		assertTrue("deleting job title that does not exists, did not return an exception", error);
+		mvc.perform(MockMvcRequestBuilders.delete("/jobtitle/0").contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().is5xxServerError());
 	}
 }

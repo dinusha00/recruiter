@@ -68,7 +68,7 @@ public class CandidateService extends ServiceBase {
 	public Candidate updateCandidate(Candidate candidate) {
 		logger.info("calling CandidateService.updateCandidate candidate:{}", candidate);
 		commonValidation(candidate);
-		if (jobTitleRepository.findOne(candidate.getId()) == null) {
+		if (candidateRepository.findOne(candidate.getId()) == null) {
 			throw new IllegalArgumentException(msgCandidateDoesnotExists);
 		}
 		candidate.setCreatedDate(candidateRepository.findOne(candidate.getId()).getCreatedDate());

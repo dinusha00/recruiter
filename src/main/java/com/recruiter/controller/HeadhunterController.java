@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.recruiter.domain.entity.Candidate;
 import com.recruiter.domain.entity.Headhunter;
 import com.recruiter.domain.vo.Calculation;
+import com.recruiter.exception.RecruiterException;
 import com.recruiter.service.CandidateService;
 import com.recruiter.service.HeadhunterService;
 
@@ -36,56 +37,84 @@ public class HeadhunterController {
 
 	@GetMapping
 	public List<Headhunter> readHeadhunters() {
-		logger.info("calling HeadhunterController.readHeadhunters");
-		final List<Headhunter> headhunters = headhunterService.readHeadhunters();
-		logger.info("returning from HeadhunterController.readHeadhunters headhunters.size():{}", headhunters.size());
-		return headhunters;
+		try {
+			logger.info("calling HeadhunterController.readHeadhunters");
+			final List<Headhunter> headhunters = headhunterService.readHeadhunters();
+			logger.info("returning from HeadhunterController.readHeadhunters headhunters.size():{}", headhunters.size());
+			return headhunters;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@GetMapping(value = "/{id}")
 	public Headhunter readHeadhunter(@PathVariable final Long id) {
-		logger.info("calling HeadhunterController.readHeadhunter id:" + id);
-		final Headhunter headhunter = headhunterService.readHeadhunter(id);
-		logger.info("returning from HeadhunterController.readHeadhunter headhunter:{}", headhunter);
-		return headhunter;
+		try {
+			logger.info("calling HeadhunterController.readHeadhunter id:" + id);
+			final Headhunter headhunter = headhunterService.readHeadhunter(id);
+			logger.info("returning from HeadhunterController.readHeadhunter headhunter:{}", headhunter);
+			return headhunter;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Headhunter createHeadhunter(@RequestBody final Headhunter headhunter) {
-		logger.info("calling HeadhunterController.createHeadhunter headhunter:{}", headhunter);
-		final Headhunter createdHeadhunter = headhunterService.createHeadhunter(headhunter);
-		logger.info("returning from HeadhunterController.createHeadhunter createdHeadhunter:{}", createdHeadhunter);
-		return createdHeadhunter;
+		try {
+			logger.info("calling HeadhunterController.createHeadhunter headhunter:{}", headhunter);
+			final Headhunter createdHeadhunter = headhunterService.createHeadhunter(headhunter);
+			logger.info("returning from HeadhunterController.createHeadhunter createdHeadhunter:{}", createdHeadhunter);
+			return createdHeadhunter;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@PutMapping
 	public Headhunter updateHeadhunter(@RequestBody final Headhunter headhunter) {
-		logger.info("calling HeadhunterController.updateHeadhunter headhunter:{}", headhunter);
-		final Headhunter updatedHeadhunter = headhunterService.updateHeadhunter(headhunter);
-		logger.info("returning from HeadhunterController.updateHeadhunter updatedHeadhunter:{}", headhunter);
-		return updatedHeadhunter;
+		try {
+			logger.info("calling HeadhunterController.updateHeadhunter headhunter:{}", headhunter);
+			final Headhunter updatedHeadhunter = headhunterService.updateHeadhunter(headhunter);
+			logger.info("returning from HeadhunterController.updateHeadhunter updatedHeadhunter:{}", headhunter);
+			return updatedHeadhunter;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public void deleteHeadhunter(@PathVariable final Long id) {
-		logger.info("calling HeadhunterController.deleteHeadhunter id:{}", id);
-		headhunterService.deleteHeadhunter(id);
+		try {
+			logger.info("calling HeadhunterController.deleteHeadhunter id:{}", id);
+			headhunterService.deleteHeadhunter(id);
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@GetMapping(value = "/{id}/candidates")
 	public List<Candidate> readHeadhunterCandidates(@PathVariable final Long id) {
-		logger.info("calling HeadhunterController.readHeadhunterCandidates id:" + id);
-		final List<Candidate> candidates = candidateService.readHeadhunterCandidates(id);
-		logger.info("returning from HeadhunterController.readHeadhunterCandidates candidates:{}", candidates);
-		return candidates;
+		try {
+			logger.info("calling HeadhunterController.readHeadhunterCandidates id:" + id);
+			final List<Candidate> candidates = candidateService.readHeadhunterCandidates(id);
+			logger.info("returning from HeadhunterController.readHeadhunterCandidates candidates:{}", candidates);
+			return candidates;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 
 	@GetMapping(value = "/{id}/calculate")
 	public Calculation calculate(@PathVariable final Long id) {
-		logger.info("calling HeadhunterController.calculate id:" + id);
-		final Calculation calculation = headhunterService.calculate(id);
-		logger.info("returning from HeadhunterController.calculate calculation:{}", calculation);
-		return calculation;
+		try {
+			logger.info("calling HeadhunterController.calculate id:" + id);
+			final Calculation calculation = headhunterService.calculate(id);
+			logger.info("returning from HeadhunterController.calculate calculation:{}", calculation);
+			return calculation;
+		} catch (final Exception e) {
+			throw new RecruiterException(e);
+		}
 	}
 }
